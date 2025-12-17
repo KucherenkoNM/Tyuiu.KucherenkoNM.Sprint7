@@ -1,0 +1,16 @@
+﻿Идентификатор процессора;Модель процессора;Производитель;Количество ядер;
+1;Intel Core i5-10400;Intel;6;
+2;Intel Core i3-10100;Intel;4;
+3;Intel Core i7-10700;Intel;8;
+4;AMD Ryzen 5 3600;AMD;6;
+5;AMD Ryzen 3 3200G;AMD;4;
+6;Intel Core i5-11400;Intel;6;
+7;Apple M1;Apple;8;
+8;Intel Core i7-12700;Intel;12;
+9;AMD Ryzen 7 3700X;AMD;8;
+10;Intel Core i5-8400;Intel;6;
+11;Intel Core i9-10900;Intel;10;
+12;Intel Core i3-9100;Intel;4;
+13;AMD Ryzen 9 5900X;AMD;12;
+14;Intel Core i5-12400H;Intel;12;
+15;Intel Core i5-10500;Intel;6;
