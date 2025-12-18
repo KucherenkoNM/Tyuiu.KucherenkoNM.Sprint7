@@ -1,6 +1,6 @@
 ﻿namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    partial class FormRetailers
+    partial class FormHelp
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            // 
-            // FormRetailers
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(703, 432);
-            Name = "FormRetailers";
-            Text = "FormRetailers";
-            ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "FormHelp";
         }
 
         #endregion
