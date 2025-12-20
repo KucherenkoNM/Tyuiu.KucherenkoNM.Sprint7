@@ -1,6 +1,6 @@
 ﻿namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    partial class FormComputerEdit
+    partial class FormComputers
     {
         /// <summary>
         /// Required designer variable.

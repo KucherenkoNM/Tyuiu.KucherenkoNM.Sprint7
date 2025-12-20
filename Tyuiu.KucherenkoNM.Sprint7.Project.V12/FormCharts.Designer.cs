@@ -1,6 +1,6 @@
 ﻿namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    partial class FormChart
+    partial class FormCharts
     {
         /// <summary>
         /// Required designer variable.

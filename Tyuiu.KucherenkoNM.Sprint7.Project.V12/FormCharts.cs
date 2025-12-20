@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    public partial class FormChart : Form
+    public partial class FormCharts : Form
     {
-        public FormChart()
+        public FormCharts()
         {
             InitializeComponent();
         }

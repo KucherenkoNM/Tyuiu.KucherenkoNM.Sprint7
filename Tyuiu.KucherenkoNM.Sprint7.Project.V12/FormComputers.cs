@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    public partial class FormComputerEdit : Form
+    public partial class FormComputers : Form
     {
-        public FormComputerEdit()
+        public FormComputers()
         {
             InitializeComponent();
         }
