@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Models;
 
@@ -6,6 +7,30 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
 {
     public class ComputerService
     {
+        public List<Computer> LoadFromCsv(string filePath)
+        {
+            var rows = CsvService.Read(filePath);
+            var result = new List<Computer>();
+
+            foreach (var row in rows)
+            {
+                var computer = new Computer
+                {
+                    ComputerId = int.Parse(row[0]),
+                    EvmType = row[1],
+                    ManufacturerId = int.Parse(row[2]),
+                    ProcessorId = int.Parse(row[3]),
+                    StorageType = row[4],
+                    ReleaseDate = DateTime.Parse(row[5]),
+                    Price = decimal.Parse(row[6])
+                };
+
+                result.Add(computer);
+            }
+
+            return result;
+        }
+
         public List<Computer> Add(List<Computer> computers, Computer computer)
         {
             computers.Add(computer);
@@ -19,23 +44,17 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
 
         public List<Computer> SearchByType(List<Computer> computers, string evmType)
         {
-            return computers
-                .Where(c => c.EvmType == evmType)
-                .ToList();
+            return computers.Where(c => c.EvmType == evmType).ToList();
         }
 
         public List<Computer> SortByPrice(List<Computer> computers)
         {
-            return computers
-                .OrderBy(c => c.Price)
-                .ToList();
+            return computers.OrderBy(c => c.Price).ToList();
         }
 
         public List<Computer> FilterByPrice(List<Computer> computers, decimal minPrice)
         {
-            return computers
-                .Where(c => c.Price >= minPrice)
-                .ToList();
+            return computers.Where(c => c.Price >= minPrice).ToList();
         }
     }
 }

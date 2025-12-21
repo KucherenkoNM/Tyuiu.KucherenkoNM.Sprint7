@@ -64,112 +64,117 @@
             menuStripMain_KNM.Items.AddRange(new ToolStripItem[] { menuFile_KNM, menuData_KNM, аналитикаToolStripMenuItem, menuHelp_KNM });
             menuStripMain_KNM.Location = new Point(0, 0);
             menuStripMain_KNM.Name = "menuStripMain_KNM";
-            menuStripMain_KNM.Size = new Size(1182, 28);
+            menuStripMain_KNM.Size = new Size(1026, 31);
             menuStripMain_KNM.TabIndex = 0;
             menuStripMain_KNM.Text = "menuStrip1";
             // 
             // menuFile_KNM
             // 
             menuFile_KNM.DropDownItems.AddRange(new ToolStripItem[] { menuFileOpen_KNM, menuFileSave_KNM, menuFileExit_KNM });
+            menuFile_KNM.Font = new Font("Segoe UI", 10F);
             menuFile_KNM.Name = "menuFile_KNM";
-            menuFile_KNM.Size = new Size(59, 24);
+            menuFile_KNM.Size = new Size(64, 27);
             menuFile_KNM.Text = "Файл";
             // 
             // menuFileOpen_KNM
             // 
             menuFileOpen_KNM.Name = "menuFileOpen_KNM";
-            menuFileOpen_KNM.Size = new Size(166, 26);
+            menuFileOpen_KNM.Size = new Size(224, 28);
             menuFileOpen_KNM.Text = "Открыть";
+            menuFileOpen_KNM.Click += menuFileOpen_KNM_Click;
             // 
             // menuFileSave_KNM
             // 
             menuFileSave_KNM.Name = "menuFileSave_KNM";
-            menuFileSave_KNM.Size = new Size(166, 26);
+            menuFileSave_KNM.Size = new Size(224, 28);
             menuFileSave_KNM.Text = "Сохранить";
             // 
             // menuFileExit_KNM
             // 
             menuFileExit_KNM.Name = "menuFileExit_KNM";
-            menuFileExit_KNM.Size = new Size(166, 26);
+            menuFileExit_KNM.Size = new Size(224, 28);
             menuFileExit_KNM.Text = "Выход";
+            menuFileExit_KNM.Click += menuFileExit_KNM_Click;
             // 
             // menuData_KNM
             // 
             menuData_KNM.DropDownItems.AddRange(new ToolStripItem[] { menuDataComputers_KNM, menuDataManufacturers_KNM, menuDataProcessors_KNM, menuDataRetailers_KNM });
+            menuData_KNM.Font = new Font("Segoe UI", 10F);
             menuData_KNM.Name = "menuData_KNM";
-            menuData_KNM.Size = new Size(78, 24);
+            menuData_KNM.Size = new Size(86, 27);
             menuData_KNM.Text = "Данные";
             // 
             // menuDataComputers_KNM
             // 
             menuDataComputers_KNM.Name = "menuDataComputers_KNM";
-            menuDataComputers_KNM.Size = new Size(202, 26);
+            menuDataComputers_KNM.Size = new Size(217, 28);
             menuDataComputers_KNM.Text = "Компьютеры";
             menuDataComputers_KNM.Click += menuDataComputers_KNM_Click;
             // 
             // menuDataManufacturers_KNM
             // 
             menuDataManufacturers_KNM.Name = "menuDataManufacturers_KNM";
-            menuDataManufacturers_KNM.Size = new Size(202, 26);
+            menuDataManufacturers_KNM.Size = new Size(217, 28);
             menuDataManufacturers_KNM.Text = "Производители";
             menuDataManufacturers_KNM.Click += menuDataManufacturers_KNM_Click;
             // 
             // menuDataProcessors_KNM
             // 
             menuDataProcessors_KNM.Name = "menuDataProcessors_KNM";
-            menuDataProcessors_KNM.Size = new Size(202, 26);
+            menuDataProcessors_KNM.Size = new Size(217, 28);
             menuDataProcessors_KNM.Text = "Процессоры";
             menuDataProcessors_KNM.Click += menuDataProcessors_KNM_Click;
             // 
             // menuDataRetailers_KNM
             // 
             menuDataRetailers_KNM.Name = "menuDataRetailers_KNM";
-            menuDataRetailers_KNM.Size = new Size(202, 26);
+            menuDataRetailers_KNM.Size = new Size(217, 28);
             menuDataRetailers_KNM.Text = "Реализаторы";
             menuDataRetailers_KNM.Click += menuDataRetailers_KNM_Click;
             // 
             // аналитикаToolStripMenuItem
             // 
             аналитикаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuAnalyticsStatistics_KNM, menuAnalytics_KNM });
+            аналитикаToolStripMenuItem.Font = new Font("Segoe UI", 10F);
             аналитикаToolStripMenuItem.Name = "аналитикаToolStripMenuItem";
-            аналитикаToolStripMenuItem.Size = new Size(97, 24);
+            аналитикаToolStripMenuItem.Size = new Size(107, 27);
             аналитикаToolStripMenuItem.Text = "Аналитика";
             // 
             // menuAnalyticsStatistics_KNM
             // 
             menuAnalyticsStatistics_KNM.Name = "menuAnalyticsStatistics_KNM";
-            menuAnalyticsStatistics_KNM.Size = new Size(224, 26);
+            menuAnalyticsStatistics_KNM.Size = new Size(180, 28);
             menuAnalyticsStatistics_KNM.Text = "Статистика";
             menuAnalyticsStatistics_KNM.Click += menuAnalyticsStatistics_KNM_Click;
             // 
             // menuAnalytics_KNM
             // 
             menuAnalytics_KNM.Name = "menuAnalytics_KNM";
-            menuAnalytics_KNM.Size = new Size(224, 26);
+            menuAnalytics_KNM.Size = new Size(180, 28);
             menuAnalytics_KNM.Text = "Графики";
-            menuAnalytics_KNM.Click += menuAnalytics_KNM_Click;
             // 
             // menuHelp_KNM
             // 
             menuHelp_KNM.DropDownItems.AddRange(new ToolStripItem[] { menuHelpOpen_KNM });
+            menuHelp_KNM.Font = new Font("Segoe UI", 10F);
             menuHelp_KNM.Name = "menuHelp_KNM";
-            menuHelp_KNM.Size = new Size(81, 24);
+            menuHelp_KNM.Size = new Size(90, 27);
             menuHelp_KNM.Text = "Справка";
             // 
             // menuHelpOpen_KNM
             // 
             menuHelpOpen_KNM.Name = "menuHelpOpen_KNM";
-            menuHelpOpen_KNM.Size = new Size(224, 26);
+            menuHelpOpen_KNM.Size = new Size(227, 28);
             menuHelpOpen_KNM.Text = "Открыть справку";
             menuHelpOpen_KNM.Click += menuHelpOpen_KNM_Click;
             // 
             // toolStripMail_KNM
             // 
-            toolStripMail_KNM.ImageScalingSize = new Size(20, 20);
+            toolStripMail_KNM.ImageScalingSize = new Size(40, 40);
             toolStripMail_KNM.Items.AddRange(new ToolStripItem[] { toolStripButtonOpen_KNM, toolStripButtonSave_KNM, toolStripButtonRefresh_KNM, toolStripButtonChart_KNM });
-            toolStripMail_KNM.Location = new Point(0, 28);
+            toolStripMail_KNM.Location = new Point(0, 31);
             toolStripMail_KNM.Name = "toolStripMail_KNM";
-            toolStripMail_KNM.Size = new Size(1182, 27);
+            toolStripMail_KNM.Size = new Size(1026, 47);
             toolStripMail_KNM.TabIndex = 1;
             toolStripMail_KNM.Text = "toolStrip1";
             // 
@@ -179,7 +184,7 @@
             toolStripButtonOpen_KNM.Image = (Image)resources.GetObject("toolStripButtonOpen_KNM.Image");
             toolStripButtonOpen_KNM.ImageTransparentColor = Color.Magenta;
             toolStripButtonOpen_KNM.Name = "toolStripButtonOpen_KNM";
-            toolStripButtonOpen_KNM.Size = new Size(29, 24);
+            toolStripButtonOpen_KNM.Size = new Size(44, 44);
             toolStripButtonOpen_KNM.Text = "toolStripButton1";
             toolStripButtonOpen_KNM.ToolTipText = "Открыть CSV файл";
             // 
@@ -189,7 +194,7 @@
             toolStripButtonSave_KNM.Image = (Image)resources.GetObject("toolStripButtonSave_KNM.Image");
             toolStripButtonSave_KNM.ImageTransparentColor = Color.Magenta;
             toolStripButtonSave_KNM.Name = "toolStripButtonSave_KNM";
-            toolStripButtonSave_KNM.Size = new Size(29, 24);
+            toolStripButtonSave_KNM.Size = new Size(44, 44);
             toolStripButtonSave_KNM.Text = "toolStripButton2";
             toolStripButtonSave_KNM.ToolTipText = "Сохранить CSV файл";
             // 
@@ -199,7 +204,7 @@
             toolStripButtonRefresh_KNM.Image = (Image)resources.GetObject("toolStripButtonRefresh_KNM.Image");
             toolStripButtonRefresh_KNM.ImageTransparentColor = Color.Magenta;
             toolStripButtonRefresh_KNM.Name = "toolStripButtonRefresh_KNM";
-            toolStripButtonRefresh_KNM.Size = new Size(29, 24);
+            toolStripButtonRefresh_KNM.Size = new Size(44, 44);
             toolStripButtonRefresh_KNM.Text = "toolStripButton3";
             toolStripButtonRefresh_KNM.ToolTipText = "Обновить данные";
             // 
@@ -209,7 +214,7 @@
             toolStripButtonChart_KNM.Image = (Image)resources.GetObject("toolStripButtonChart_KNM.Image");
             toolStripButtonChart_KNM.ImageTransparentColor = Color.Magenta;
             toolStripButtonChart_KNM.Name = "toolStripButtonChart_KNM";
-            toolStripButtonChart_KNM.Size = new Size(29, 24);
+            toolStripButtonChart_KNM.Size = new Size(44, 44);
             toolStripButtonChart_KNM.Text = "toolStripButton4";
             toolStripButtonChart_KNM.ToolTipText = "Открыть график";
             // 
@@ -218,9 +223,9 @@
             panelContent_KNM.BorderStyle = BorderStyle.FixedSingle;
             panelContent_KNM.Controls.Add(labelWelcome_KNM);
             panelContent_KNM.Dock = DockStyle.Fill;
-            panelContent_KNM.Location = new Point(0, 55);
+            panelContent_KNM.Location = new Point(0, 78);
             panelContent_KNM.Name = "panelContent_KNM";
-            panelContent_KNM.Size = new Size(1182, 598);
+            panelContent_KNM.Size = new Size(1026, 540);
             panelContent_KNM.TabIndex = 2;
             // 
             // labelWelcome_KNM
@@ -229,7 +234,7 @@
             labelWelcome_KNM.AutoSize = true;
             labelWelcome_KNM.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
             labelWelcome_KNM.ForeColor = SystemColors.GrayText;
-            labelWelcome_KNM.Location = new Point(419, 271);
+            labelWelcome_KNM.Location = new Point(419, 260);
             labelWelcome_KNM.Name = "labelWelcome_KNM";
             labelWelcome_KNM.Size = new Size(327, 35);
             labelWelcome_KNM.TabIndex = 0;
@@ -240,12 +245,12 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1182, 653);
+            ClientSize = new Size(1026, 618);
             Controls.Add(panelContent_KNM);
             Controls.Add(toolStripMail_KNM);
             Controls.Add(menuStripMain_KNM);
             MainMenuStrip = menuStripMain_KNM;
-            MinimumSize = new Size(1200, 700);
+            MinimumSize = new Size(1031, 621);
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Персональные ЭВМ — главное окно";
