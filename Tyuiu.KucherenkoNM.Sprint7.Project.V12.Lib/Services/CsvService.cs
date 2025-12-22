@@ -10,7 +10,7 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
         {
             return File.ReadAllLines(filePath)
                 .Skip(1)
-                .Select(line => line.Split(','))
+                .Select(line => line.Split(new[] { ';', '\t' }))
                 .ToList();
         }
 

@@ -19,10 +19,11 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
                     ComputerId = int.Parse(row[0]),
                     EvmType = row[1],
                     ManufacturerId = int.Parse(row[2]),
-                    ProcessorId = int.Parse(row[3]),
-                    StorageType = row[4],
-                    ReleaseDate = DateTime.Parse(row[5]),
-                    Price = decimal.Parse(row[6])
+                    RetailerId = int.Parse(row[3]),
+                    ProcessorId = int.Parse(row[4]),
+                    StorageType = row[5],
+                    ReleaseDate = DateTime.Parse(row[6]),
+                    Price = decimal.Parse(row[7])
                 };
 
                 result.Add(computer);

@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             panelTop_KNM = new Panel();
             buttonDeleteManufacturer_KNM = new Button();
-            buttonEditManufacturer_KNM = new Button();
             buttonAddManufacturer_KNM = new Button();
             toolTipMain_KNM = new ToolTip(components);
             panelFilter_KNM = new Panel();
@@ -50,7 +49,6 @@
             // panelTop_KNM
             // 
             panelTop_KNM.Controls.Add(buttonDeleteManufacturer_KNM);
-            panelTop_KNM.Controls.Add(buttonEditManufacturer_KNM);
             panelTop_KNM.Controls.Add(buttonAddManufacturer_KNM);
             panelTop_KNM.Dock = DockStyle.Top;
             panelTop_KNM.Location = new Point(0, 0);
@@ -62,23 +60,12 @@
             // 
             buttonDeleteManufacturer_KNM.FlatStyle = FlatStyle.Flat;
             buttonDeleteManufacturer_KNM.Image = Properties.Resources.application_delete;
-            buttonDeleteManufacturer_KNM.Location = new Point(94, 12);
+            buttonDeleteManufacturer_KNM.Location = new Point(53, 12);
             buttonDeleteManufacturer_KNM.Name = "buttonDeleteManufacturer_KNM";
             buttonDeleteManufacturer_KNM.Size = new Size(35, 35);
             buttonDeleteManufacturer_KNM.TabIndex = 0;
             toolTipMain_KNM.SetToolTip(buttonDeleteManufacturer_KNM, "Удалить выбранную фирму-изготовителя");
             buttonDeleteManufacturer_KNM.UseVisualStyleBackColor = true;
-            // 
-            // buttonEditManufacturer_KNM
-            // 
-            buttonEditManufacturer_KNM.FlatStyle = FlatStyle.Flat;
-            buttonEditManufacturer_KNM.Image = Properties.Resources.application_edit;
-            buttonEditManufacturer_KNM.Location = new Point(53, 12);
-            buttonEditManufacturer_KNM.Name = "buttonEditManufacturer_KNM";
-            buttonEditManufacturer_KNM.Size = new Size(35, 35);
-            buttonEditManufacturer_KNM.TabIndex = 0;
-            toolTipMain_KNM.SetToolTip(buttonEditManufacturer_KNM, "Изменить выбранную фирму-изготовителя");
-            buttonEditManufacturer_KNM.UseVisualStyleBackColor = true;
             // 
             // buttonAddManufacturer_KNM
             // 
@@ -196,7 +183,6 @@
         private Panel panelTop_KNM;
         private Button buttonAddManufacturer_KNM;
         private Button buttonDeleteManufacturer_KNM;
-        private Button buttonEditManufacturer_KNM;
         private ToolTip toolTipMain_KNM;
         private Panel panelFilter_KNM;
         private Button buttonResetFilters_KNM;

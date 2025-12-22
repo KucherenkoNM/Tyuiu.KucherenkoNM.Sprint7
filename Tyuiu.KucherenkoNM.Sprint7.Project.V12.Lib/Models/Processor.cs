@@ -2,9 +2,10 @@
 {
     public class Processor
     {
-        public int ProcessorId { get; set; }
-        public string Vendor { get; set; }
-        public string Model { get; set; }
-        public double FrequencyGHz { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Manufacturer { get; set; } = string.Empty;
+        public int Cores { get; set; }
     }
+
 }

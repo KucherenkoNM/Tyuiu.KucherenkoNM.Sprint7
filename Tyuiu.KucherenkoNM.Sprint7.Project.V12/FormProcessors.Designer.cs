@@ -30,10 +30,9 @@
         {
             components = new System.ComponentModel.Container();
             toolTipMain_KNM = new ToolTip(components);
-            panelTop_KNM = new Panel();
             buttonDeleteProcessor_KNM = new Button();
-            buttonEditProcessor_KNM = new Button();
             buttonAddProcessor_KNM = new Button();
+            panelTop_KNM = new Panel();
             buttonResetFilters_KNM = new Button();
             textBoxFrequencyTo_KNM = new TextBox();
             textBoxFrequencyFrom_KNM = new TextBox();
@@ -44,45 +43,23 @@
             labelSearch_KNM = new Label();
             labelFiltersTitle_KNM = new Label();
             panelFilter_KNM = new Panel();
-            dataGridViewComputers_KNM = new DataGridView();
-            textBoxManufacturer_KNM = new TextBox();
+            dataGridViewProcessors_KNM = new DataGridView();
+            comboBoxManufacturer_KNM = new ComboBox();
             panelTop_KNM.SuspendLayout();
             panelFilter_KNM.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewComputers_KNM).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProcessors_KNM).BeginInit();
             SuspendLayout();
-            // 
-            // panelTop_KNM
-            // 
-            panelTop_KNM.Controls.Add(buttonDeleteProcessor_KNM);
-            panelTop_KNM.Controls.Add(buttonEditProcessor_KNM);
-            panelTop_KNM.Controls.Add(buttonAddProcessor_KNM);
-            panelTop_KNM.Dock = DockStyle.Top;
-            panelTop_KNM.Location = new Point(0, 0);
-            panelTop_KNM.Name = "panelTop_KNM";
-            panelTop_KNM.Size = new Size(800, 63);
-            panelTop_KNM.TabIndex = 1;
             // 
             // buttonDeleteProcessor_KNM
             // 
             buttonDeleteProcessor_KNM.FlatStyle = FlatStyle.Flat;
             buttonDeleteProcessor_KNM.Image = Properties.Resources.drive_delete1;
-            buttonDeleteProcessor_KNM.Location = new Point(94, 12);
+            buttonDeleteProcessor_KNM.Location = new Point(53, 12);
             buttonDeleteProcessor_KNM.Name = "buttonDeleteProcessor_KNM";
             buttonDeleteProcessor_KNM.Size = new Size(35, 35);
             buttonDeleteProcessor_KNM.TabIndex = 2;
             toolTipMain_KNM.SetToolTip(buttonDeleteProcessor_KNM, "Удалить выбранный процессор");
             buttonDeleteProcessor_KNM.UseVisualStyleBackColor = true;
-            // 
-            // buttonEditProcessor_KNM
-            // 
-            buttonEditProcessor_KNM.FlatStyle = FlatStyle.Flat;
-            buttonEditProcessor_KNM.Image = Properties.Resources.drive_edit;
-            buttonEditProcessor_KNM.Location = new Point(53, 12);
-            buttonEditProcessor_KNM.Name = "buttonEditProcessor_KNM";
-            buttonEditProcessor_KNM.Size = new Size(35, 35);
-            buttonEditProcessor_KNM.TabIndex = 1;
-            toolTipMain_KNM.SetToolTip(buttonEditProcessor_KNM, "Изменить выбранный процессор");
-            buttonEditProcessor_KNM.UseVisualStyleBackColor = true;
             // 
             // buttonAddProcessor_KNM
             // 
@@ -94,6 +71,16 @@
             buttonAddProcessor_KNM.TabIndex = 0;
             toolTipMain_KNM.SetToolTip(buttonAddProcessor_KNM, "Добавить процессор");
             buttonAddProcessor_KNM.UseVisualStyleBackColor = true;
+            // 
+            // panelTop_KNM
+            // 
+            panelTop_KNM.Controls.Add(buttonDeleteProcessor_KNM);
+            panelTop_KNM.Controls.Add(buttonAddProcessor_KNM);
+            panelTop_KNM.Dock = DockStyle.Top;
+            panelTop_KNM.Location = new Point(0, 0);
+            panelTop_KNM.Name = "panelTop_KNM";
+            panelTop_KNM.Size = new Size(800, 63);
+            panelTop_KNM.TabIndex = 1;
             // 
             // buttonResetFilters_KNM
             // 
@@ -175,10 +162,10 @@
             // panelFilter_KNM
             // 
             panelFilter_KNM.BackColor = SystemColors.ControlLight;
+            panelFilter_KNM.Controls.Add(comboBoxManufacturer_KNM);
             panelFilter_KNM.Controls.Add(buttonResetFilters_KNM);
             panelFilter_KNM.Controls.Add(textBoxFrequencyTo_KNM);
             panelFilter_KNM.Controls.Add(textBoxFrequencyFrom_KNM);
-            panelFilter_KNM.Controls.Add(textBoxManufacturer_KNM);
             panelFilter_KNM.Controls.Add(textBoxSearch_KNM);
             panelFilter_KNM.Controls.Add(labelFrequencyTo_KNM);
             panelFilter_KNM.Controls.Add(labelFrequencyFrom_KNM);
@@ -192,32 +179,33 @@
             panelFilter_KNM.Size = new Size(220, 387);
             panelFilter_KNM.TabIndex = 2;
             // 
-            // dataGridViewComputers_KNM
+            // dataGridViewProcessors_KNM
             // 
-            dataGridViewComputers_KNM.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewComputers_KNM.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewComputers_KNM.Dock = DockStyle.Fill;
-            dataGridViewComputers_KNM.Location = new Point(220, 63);
-            dataGridViewComputers_KNM.MultiSelect = false;
-            dataGridViewComputers_KNM.Name = "dataGridViewComputers_KNM";
-            dataGridViewComputers_KNM.RowHeadersWidth = 51;
-            dataGridViewComputers_KNM.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewComputers_KNM.Size = new Size(580, 387);
-            dataGridViewComputers_KNM.TabIndex = 3;
+            dataGridViewProcessors_KNM.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewProcessors_KNM.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewProcessors_KNM.Dock = DockStyle.Fill;
+            dataGridViewProcessors_KNM.Location = new Point(220, 63);
+            dataGridViewProcessors_KNM.MultiSelect = false;
+            dataGridViewProcessors_KNM.Name = "dataGridViewProcessors_KNM";
+            dataGridViewProcessors_KNM.RowHeadersWidth = 51;
+            dataGridViewProcessors_KNM.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewProcessors_KNM.Size = new Size(580, 387);
+            dataGridViewProcessors_KNM.TabIndex = 3;
             // 
-            // textBoxManufacturer_KNM
+            // comboBoxManufacturer_KNM
             // 
-            textBoxManufacturer_KNM.Location = new Point(12, 131);
-            textBoxManufacturer_KNM.Name = "textBoxManufacturer_KNM";
-            textBoxManufacturer_KNM.Size = new Size(194, 27);
-            textBoxManufacturer_KNM.TabIndex = 5;
+            comboBoxManufacturer_KNM.FormattingEnabled = true;
+            comboBoxManufacturer_KNM.Location = new Point(13, 131);
+            comboBoxManufacturer_KNM.Name = "comboBoxManufacturer_KNM";
+            comboBoxManufacturer_KNM.Size = new Size(194, 28);
+            comboBoxManufacturer_KNM.TabIndex = 10;
             // 
             // FormProcessors
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dataGridViewComputers_KNM);
+            Controls.Add(dataGridViewProcessors_KNM);
             Controls.Add(panelFilter_KNM);
             Controls.Add(panelTop_KNM);
             FormBorderStyle = FormBorderStyle.None;
@@ -227,7 +215,7 @@
             panelTop_KNM.ResumeLayout(false);
             panelFilter_KNM.ResumeLayout(false);
             panelFilter_KNM.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewComputers_KNM).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProcessors_KNM).EndInit();
             ResumeLayout(false);
         }
 
@@ -236,7 +224,6 @@
         private ToolTip toolTipMain_KNM;
         private Panel panelTop_KNM;
         private Button buttonDeleteProcessor_KNM;
-        private Button buttonEditProcessor_KNM;
         private Button buttonAddProcessor_KNM;
         private Button buttonResetFilters_KNM;
         private TextBox textBoxFrequencyTo_KNM;
@@ -249,7 +236,7 @@
         private Label labelSearch_KNM;
         private Label labelFiltersTitle_KNM;
         private Panel panelFilter_KNM;
-        private DataGridView dataGridViewComputers_KNM;
-        private TextBox textBoxManufacturer_KNM;
+        private DataGridView dataGridViewProcessors_KNM;
+        private ComboBox comboBoxManufacturer_KNM;
     }
 }

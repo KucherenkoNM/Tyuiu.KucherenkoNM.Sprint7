@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             panelTop_KNM = new Panel();
             buttonDeleteRetailer_KNM = new Button();
-            buttonEditRetailer_KNM = new Button();
             buttonAddRetailer_KNM = new Button();
             panelFilter_KNM = new Panel();
             buttonResetFilters_KNM = new Button();
@@ -50,7 +49,6 @@
             // panelTop_KNM
             // 
             panelTop_KNM.Controls.Add(buttonDeleteRetailer_KNM);
-            panelTop_KNM.Controls.Add(buttonEditRetailer_KNM);
             panelTop_KNM.Controls.Add(buttonAddRetailer_KNM);
             panelTop_KNM.Dock = DockStyle.Top;
             panelTop_KNM.Location = new Point(0, 0);
@@ -62,23 +60,12 @@
             // 
             buttonDeleteRetailer_KNM.FlatStyle = FlatStyle.Flat;
             buttonDeleteRetailer_KNM.Image = Properties.Resources.application_delete;
-            buttonDeleteRetailer_KNM.Location = new Point(94, 12);
+            buttonDeleteRetailer_KNM.Location = new Point(53, 12);
             buttonDeleteRetailer_KNM.Name = "buttonDeleteRetailer_KNM";
             buttonDeleteRetailer_KNM.Size = new Size(35, 35);
             buttonDeleteRetailer_KNM.TabIndex = 0;
             toolTipMain_KNM.SetToolTip(buttonDeleteRetailer_KNM, "Удалить фирму-реализатора");
             buttonDeleteRetailer_KNM.UseVisualStyleBackColor = true;
-            // 
-            // buttonEditRetailer_KNM
-            // 
-            buttonEditRetailer_KNM.FlatStyle = FlatStyle.Flat;
-            buttonEditRetailer_KNM.Image = Properties.Resources.application_edit;
-            buttonEditRetailer_KNM.Location = new Point(53, 12);
-            buttonEditRetailer_KNM.Name = "buttonEditRetailer_KNM";
-            buttonEditRetailer_KNM.Size = new Size(35, 35);
-            buttonEditRetailer_KNM.TabIndex = 0;
-            toolTipMain_KNM.SetToolTip(buttonEditRetailer_KNM, "Изменить фирму-реализатора");
-            buttonEditRetailer_KNM.UseVisualStyleBackColor = true;
             // 
             // buttonAddRetailer_KNM
             // 
@@ -195,7 +182,6 @@
 
         private Panel panelTop_KNM;
         private Button buttonDeleteRetailer_KNM;
-        private Button buttonEditRetailer_KNM;
         private Button buttonAddRetailer_KNM;
         private Panel panelFilter_KNM;
         private Button buttonResetFilters_KNM;

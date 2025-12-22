@@ -32,12 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormComputers));
             panelTop_KNM = new Panel();
             buttonDeleteComputer_KNM = new Button();
-            buttonEditComputer_KNM = new Button();
             buttonAddComputer_KNM = new Button();
             panelFilter_KNM = new Panel();
             buttonResetFilters_KNM = new Button();
             textBoxPriceTo_KNM = new TextBox();
-            textBoxPrinceFrom_KNM = new TextBox();
+            textBoxPriceFrom_KNM = new TextBox();
             comboBoxEvmType_KNM = new ComboBox();
             textBoxSearch_KNM = new TextBox();
             labelPriceTo_KNM = new Label();
@@ -55,7 +54,6 @@
             // panelTop_KNM
             // 
             panelTop_KNM.Controls.Add(buttonDeleteComputer_KNM);
-            panelTop_KNM.Controls.Add(buttonEditComputer_KNM);
             panelTop_KNM.Controls.Add(buttonAddComputer_KNM);
             panelTop_KNM.Dock = DockStyle.Top;
             panelTop_KNM.Location = new Point(0, 0);
@@ -67,23 +65,13 @@
             // 
             buttonDeleteComputer_KNM.FlatStyle = FlatStyle.Flat;
             buttonDeleteComputer_KNM.Image = (Image)resources.GetObject("buttonDeleteComputer_KNM.Image");
-            buttonDeleteComputer_KNM.Location = new Point(94, 12);
+            buttonDeleteComputer_KNM.Location = new Point(53, 12);
             buttonDeleteComputer_KNM.Name = "buttonDeleteComputer_KNM";
             buttonDeleteComputer_KNM.Size = new Size(35, 35);
             buttonDeleteComputer_KNM.TabIndex = 2;
             toolTipMain_KNM.SetToolTip(buttonDeleteComputer_KNM, "Удалить выбранный компьютер");
             buttonDeleteComputer_KNM.UseVisualStyleBackColor = true;
-            // 
-            // buttonEditComputer_KNM
-            // 
-            buttonEditComputer_KNM.FlatStyle = FlatStyle.Flat;
-            buttonEditComputer_KNM.Image = (Image)resources.GetObject("buttonEditComputer_KNM.Image");
-            buttonEditComputer_KNM.Location = new Point(53, 12);
-            buttonEditComputer_KNM.Name = "buttonEditComputer_KNM";
-            buttonEditComputer_KNM.Size = new Size(35, 35);
-            buttonEditComputer_KNM.TabIndex = 1;
-            toolTipMain_KNM.SetToolTip(buttonEditComputer_KNM, "Изменить выбранный компьютер");
-            buttonEditComputer_KNM.UseVisualStyleBackColor = true;
+            buttonDeleteComputer_KNM.Click += buttonDeleteComputer_KNM_Click;
             // 
             // buttonAddComputer_KNM
             // 
@@ -95,13 +83,14 @@
             buttonAddComputer_KNM.TabIndex = 0;
             toolTipMain_KNM.SetToolTip(buttonAddComputer_KNM, "Добавить компьютер");
             buttonAddComputer_KNM.UseVisualStyleBackColor = true;
+            buttonAddComputer_KNM.Click += buttonAddComputer_KNM_Click;
             // 
             // panelFilter_KNM
             // 
             panelFilter_KNM.BackColor = SystemColors.ControlLight;
             panelFilter_KNM.Controls.Add(buttonResetFilters_KNM);
             panelFilter_KNM.Controls.Add(textBoxPriceTo_KNM);
-            panelFilter_KNM.Controls.Add(textBoxPrinceFrom_KNM);
+            panelFilter_KNM.Controls.Add(textBoxPriceFrom_KNM);
             panelFilter_KNM.Controls.Add(comboBoxEvmType_KNM);
             panelFilter_KNM.Controls.Add(textBoxSearch_KNM);
             panelFilter_KNM.Controls.Add(labelPriceTo_KNM);
@@ -125,6 +114,7 @@
             buttonResetFilters_KNM.TabIndex = 9;
             buttonResetFilters_KNM.Text = "Сброс фильтров";
             buttonResetFilters_KNM.UseVisualStyleBackColor = true;
+            buttonResetFilters_KNM.Click += buttonResetFilters_KNM_Click;
             // 
             // textBoxPriceTo_KNM
             // 
@@ -132,13 +122,15 @@
             textBoxPriceTo_KNM.Name = "textBoxPriceTo_KNM";
             textBoxPriceTo_KNM.Size = new Size(194, 27);
             textBoxPriceTo_KNM.TabIndex = 8;
+            textBoxPriceTo_KNM.TextChanged += textBoxPriceTo_KNM_TextChanged;
             // 
-            // textBoxPrinceFrom_KNM
+            // textBoxPriceFrom_KNM
             // 
-            textBoxPrinceFrom_KNM.Location = new Point(12, 194);
-            textBoxPrinceFrom_KNM.Name = "textBoxPrinceFrom_KNM";
-            textBoxPrinceFrom_KNM.Size = new Size(195, 27);
-            textBoxPrinceFrom_KNM.TabIndex = 7;
+            textBoxPriceFrom_KNM.Location = new Point(12, 194);
+            textBoxPriceFrom_KNM.Name = "textBoxPriceFrom_KNM";
+            textBoxPriceFrom_KNM.Size = new Size(195, 27);
+            textBoxPriceFrom_KNM.TabIndex = 7;
+            textBoxPriceFrom_KNM.TextChanged += textBoxPriceFrom_KNM_TextChanged;
             // 
             // comboBoxEvmType_KNM
             // 
@@ -148,6 +140,7 @@
             comboBoxEvmType_KNM.Name = "comboBoxEvmType_KNM";
             comboBoxEvmType_KNM.Size = new Size(195, 28);
             comboBoxEvmType_KNM.TabIndex = 6;
+            comboBoxEvmType_KNM.SelectedIndexChanged += comboBoxEvmType_KNM_SelectedIndexChanged;
             // 
             // textBoxSearch_KNM
             // 
@@ -155,6 +148,7 @@
             textBoxSearch_KNM.Name = "textBoxSearch_KNM";
             textBoxSearch_KNM.Size = new Size(194, 27);
             textBoxSearch_KNM.TabIndex = 5;
+            textBoxSearch_KNM.TextChanged += textBoxSearch_KNM_TextChanged;
             // 
             // labelPriceTo_KNM
             // 
@@ -204,12 +198,17 @@
             // 
             // dataGridViewComputers_KNM
             // 
+            dataGridViewComputers_KNM.AllowUserToAddRows = false;
+            dataGridViewComputers_KNM.AllowUserToDeleteRows = false;
+            dataGridViewComputers_KNM.AllowUserToResizeRows = false;
             dataGridViewComputers_KNM.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewComputers_KNM.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewComputers_KNM.Dock = DockStyle.Fill;
+            dataGridViewComputers_KNM.EditMode = DataGridViewEditMode.EditOnEnter;
             dataGridViewComputers_KNM.Location = new Point(220, 63);
             dataGridViewComputers_KNM.MultiSelect = false;
             dataGridViewComputers_KNM.Name = "dataGridViewComputers_KNM";
+            dataGridViewComputers_KNM.RowHeadersVisible = false;
             dataGridViewComputers_KNM.RowHeadersWidth = 51;
             dataGridViewComputers_KNM.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewComputers_KNM.Size = new Size(580, 387);
@@ -238,7 +237,6 @@
 
         private Panel panelTop_KNM;
         private Button buttonDeleteComputer_KNM;
-        private Button buttonEditComputer_KNM;
         private Button buttonAddComputer_KNM;
         private Panel panelFilter_KNM;
         private DataGridView dataGridViewComputers_KNM;
@@ -250,7 +248,7 @@
         private Label labelFiltersTitle_KNM;
         private TextBox textBoxSearch_KNM;
         private ComboBox comboBoxEvmType_KNM;
-        private TextBox textBoxPrinceFrom_KNM;
+        private TextBox textBoxPriceFrom_KNM;
         private Button buttonResetFilters_KNM;
         private TextBox textBoxPriceTo_KNM;
     }
