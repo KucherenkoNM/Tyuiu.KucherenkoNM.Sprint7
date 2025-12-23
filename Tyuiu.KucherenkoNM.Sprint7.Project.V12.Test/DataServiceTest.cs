@@ -61,21 +61,5 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Test
 
             Assert.AreEqual(75000, average);
         }
-
-        [TestMethod]
-        public void CountByEvmType_ShouldGroupCorrectly()
-        {
-            var computers = new List<Computer>
-            {
-                new Computer { EvmType = "ПК" },
-                new Computer { EvmType = "Ноутбук" },
-                new Computer { EvmType = "Ноутбук" }
-            };
-
-            var result = ChartDataService.CountByEvmType(computers);
-
-            Assert.AreEqual(1, result["ПК"]);
-            Assert.AreEqual(2, result["Ноутбук"]);
-        }
     }
 }

@@ -30,33 +30,39 @@
         {
             components = new System.ComponentModel.Container();
             toolTipMain_KNM = new ToolTip(components);
-            panelFilters_KNM = new Panel();
             comboBoxEvmType_KNM = new ComboBox();
+            panelFilters_KNM = new Panel();
             labelEvmType_KNM = new Label();
-            comboBoxParametr_KNM = new ComboBox();
-            labelParametr_KNM = new Label();
             labelFiltersTitle_KNM = new Label();
             panelStatistics_KNM = new Panel();
-            labelCountTitle_KNM = new Label();
-            labelCountValue_KNM = new Label();
-            labelMinTitle_KNM = new Label();
-            labelMinValue_KNM = new Label();
-            labelMaxTitle_KNM = new Label();
-            labelMaxValue_KNM = new Label();
-            labelAverageTitle_KNM = new Label();
-            labelAverageValue_KNM = new Label();
-            labelSumTitle_KNM = new Label();
             labelSumValue_KNM = new Label();
+            labelAverageValue_KNM = new Label();
+            labelMaxValue_KNM = new Label();
+            labelMinValue_KNM = new Label();
+            labelCountValue_KNM = new Label();
+            labelSumTitle_KNM = new Label();
+            labelAverageTitle_KNM = new Label();
+            labelMaxTitle_KNM = new Label();
+            labelMinTitle_KNM = new Label();
+            labelCountTitle_KNM = new Label();
             panelFilters_KNM.SuspendLayout();
             panelStatistics_KNM.SuspendLayout();
             SuspendLayout();
+            // 
+            // comboBoxEvmType_KNM
+            // 
+            comboBoxEvmType_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxEvmType_KNM.FormattingEnabled = true;
+            comboBoxEvmType_KNM.Location = new Point(26, 102);
+            comboBoxEvmType_KNM.Name = "comboBoxEvmType_KNM";
+            comboBoxEvmType_KNM.Size = new Size(211, 28);
+            comboBoxEvmType_KNM.TabIndex = 2;
+            toolTipMain_KNM.SetToolTip(comboBoxEvmType_KNM, "Фильтрация по типу ЭВМ");
             // 
             // panelFilters_KNM
             // 
             panelFilters_KNM.Controls.Add(comboBoxEvmType_KNM);
             panelFilters_KNM.Controls.Add(labelEvmType_KNM);
-            panelFilters_KNM.Controls.Add(comboBoxParametr_KNM);
-            panelFilters_KNM.Controls.Add(labelParametr_KNM);
             panelFilters_KNM.Controls.Add(labelFiltersTitle_KNM);
             panelFilters_KNM.Dock = DockStyle.Left;
             panelFilters_KNM.Location = new Point(0, 0);
@@ -64,45 +70,15 @@
             panelFilters_KNM.Size = new Size(260, 450);
             panelFilters_KNM.TabIndex = 0;
             // 
-            // comboBoxEvmType_KNM
-            // 
-            comboBoxEvmType_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxEvmType_KNM.FormattingEnabled = true;
-            comboBoxEvmType_KNM.Location = new Point(26, 158);
-            comboBoxEvmType_KNM.Name = "comboBoxEvmType_KNM";
-            comboBoxEvmType_KNM.Size = new Size(211, 28);
-            comboBoxEvmType_KNM.TabIndex = 2;
-            toolTipMain_KNM.SetToolTip(comboBoxEvmType_KNM, "Фильтрация по типу ЭВМ");
-            // 
             // labelEvmType_KNM
             // 
             labelEvmType_KNM.AutoSize = true;
-            labelEvmType_KNM.Location = new Point(93, 135);
+            labelEvmType_KNM.Location = new Point(86, 59);
             labelEvmType_KNM.Margin = new Padding(5);
             labelEvmType_KNM.Name = "labelEvmType_KNM";
             labelEvmType_KNM.Size = new Size(70, 20);
             labelEvmType_KNM.TabIndex = 1;
             labelEvmType_KNM.Text = "Тип ЭВМ";
-            // 
-            // comboBoxParametr_KNM
-            // 
-            comboBoxParametr_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxParametr_KNM.FormattingEnabled = true;
-            comboBoxParametr_KNM.Location = new Point(26, 85);
-            comboBoxParametr_KNM.Name = "comboBoxParametr_KNM";
-            comboBoxParametr_KNM.Size = new Size(211, 28);
-            comboBoxParametr_KNM.TabIndex = 2;
-            toolTipMain_KNM.SetToolTip(comboBoxParametr_KNM, "Выберите показатель для параметра");
-            // 
-            // labelParametr_KNM
-            // 
-            labelParametr_KNM.AutoSize = true;
-            labelParametr_KNM.Location = new Point(83, 62);
-            labelParametr_KNM.Margin = new Padding(5);
-            labelParametr_KNM.Name = "labelParametr_KNM";
-            labelParametr_KNM.Size = new Size(89, 20);
-            labelParametr_KNM.TabIndex = 1;
-            labelParametr_KNM.Text = "Показатель";
             // 
             // labelFiltersTitle_KNM
             // 
@@ -133,75 +109,15 @@
             panelStatistics_KNM.Size = new Size(540, 450);
             panelStatistics_KNM.TabIndex = 1;
             // 
-            // labelCountTitle_KNM
+            // labelSumValue_KNM
             // 
-            labelCountTitle_KNM.AutoSize = true;
-            labelCountTitle_KNM.Font = new Font("Segoe UI", 12F);
-            labelCountTitle_KNM.Location = new Point(74, 95);
-            labelCountTitle_KNM.Name = "labelCountTitle_KNM";
-            labelCountTitle_KNM.Size = new Size(129, 28);
-            labelCountTitle_KNM.TabIndex = 0;
-            labelCountTitle_KNM.Text = "Количество: ";
-            // 
-            // labelCountValue_KNM
-            // 
-            labelCountValue_KNM.AutoSize = true;
-            labelCountValue_KNM.Font = new Font("Segoe UI", 12F);
-            labelCountValue_KNM.Location = new Point(296, 98);
-            labelCountValue_KNM.Name = "labelCountValue_KNM";
-            labelCountValue_KNM.Size = new Size(23, 28);
-            labelCountValue_KNM.TabIndex = 1;
-            labelCountValue_KNM.Text = "0";
-            // 
-            // labelMinTitle_KNM
-            // 
-            labelMinTitle_KNM.AutoSize = true;
-            labelMinTitle_KNM.Font = new Font("Segoe UI", 12F);
-            labelMinTitle_KNM.Location = new Point(74, 143);
-            labelMinTitle_KNM.Name = "labelMinTitle_KNM";
-            labelMinTitle_KNM.Size = new Size(113, 28);
-            labelMinTitle_KNM.TabIndex = 0;
-            labelMinTitle_KNM.Text = "Минимум: ";
-            // 
-            // labelMinValue_KNM
-            // 
-            labelMinValue_KNM.AutoSize = true;
-            labelMinValue_KNM.Font = new Font("Segoe UI", 12F);
-            labelMinValue_KNM.Location = new Point(296, 146);
-            labelMinValue_KNM.Name = "labelMinValue_KNM";
-            labelMinValue_KNM.Size = new Size(23, 28);
-            labelMinValue_KNM.TabIndex = 1;
-            labelMinValue_KNM.Text = "0";
-            // 
-            // labelMaxTitle_KNM
-            // 
-            labelMaxTitle_KNM.AutoSize = true;
-            labelMaxTitle_KNM.Font = new Font("Segoe UI", 12F);
-            labelMaxTitle_KNM.Location = new Point(74, 194);
-            labelMaxTitle_KNM.Name = "labelMaxTitle_KNM";
-            labelMaxTitle_KNM.Size = new Size(113, 28);
-            labelMaxTitle_KNM.TabIndex = 0;
-            labelMaxTitle_KNM.Text = "Максимум:";
-            // 
-            // labelMaxValue_KNM
-            // 
-            labelMaxValue_KNM.AutoSize = true;
-            labelMaxValue_KNM.Font = new Font("Segoe UI", 12F);
-            labelMaxValue_KNM.Location = new Point(296, 197);
-            labelMaxValue_KNM.Name = "labelMaxValue_KNM";
-            labelMaxValue_KNM.Size = new Size(23, 28);
-            labelMaxValue_KNM.TabIndex = 1;
-            labelMaxValue_KNM.Text = "0";
-            // 
-            // labelAverageTitle_KNM
-            // 
-            labelAverageTitle_KNM.AutoSize = true;
-            labelAverageTitle_KNM.Font = new Font("Segoe UI", 12F);
-            labelAverageTitle_KNM.Location = new Point(74, 249);
-            labelAverageTitle_KNM.Name = "labelAverageTitle_KNM";
-            labelAverageTitle_KNM.Size = new Size(93, 28);
-            labelAverageTitle_KNM.TabIndex = 0;
-            labelAverageTitle_KNM.Text = "Среднее:";
+            labelSumValue_KNM.AutoSize = true;
+            labelSumValue_KNM.Font = new Font("Segoe UI", 12F);
+            labelSumValue_KNM.Location = new Point(296, 307);
+            labelSumValue_KNM.Name = "labelSumValue_KNM";
+            labelSumValue_KNM.Size = new Size(23, 28);
+            labelSumValue_KNM.TabIndex = 1;
+            labelSumValue_KNM.Text = "0";
             // 
             // labelAverageValue_KNM
             // 
@@ -213,6 +129,36 @@
             labelAverageValue_KNM.TabIndex = 1;
             labelAverageValue_KNM.Text = "0";
             // 
+            // labelMaxValue_KNM
+            // 
+            labelMaxValue_KNM.AutoSize = true;
+            labelMaxValue_KNM.Font = new Font("Segoe UI", 12F);
+            labelMaxValue_KNM.Location = new Point(296, 197);
+            labelMaxValue_KNM.Name = "labelMaxValue_KNM";
+            labelMaxValue_KNM.Size = new Size(23, 28);
+            labelMaxValue_KNM.TabIndex = 1;
+            labelMaxValue_KNM.Text = "0";
+            // 
+            // labelMinValue_KNM
+            // 
+            labelMinValue_KNM.AutoSize = true;
+            labelMinValue_KNM.Font = new Font("Segoe UI", 12F);
+            labelMinValue_KNM.Location = new Point(296, 146);
+            labelMinValue_KNM.Name = "labelMinValue_KNM";
+            labelMinValue_KNM.Size = new Size(23, 28);
+            labelMinValue_KNM.TabIndex = 1;
+            labelMinValue_KNM.Text = "0";
+            // 
+            // labelCountValue_KNM
+            // 
+            labelCountValue_KNM.AutoSize = true;
+            labelCountValue_KNM.Font = new Font("Segoe UI", 12F);
+            labelCountValue_KNM.Location = new Point(296, 98);
+            labelCountValue_KNM.Name = "labelCountValue_KNM";
+            labelCountValue_KNM.Size = new Size(23, 28);
+            labelCountValue_KNM.TabIndex = 1;
+            labelCountValue_KNM.Text = "0";
+            // 
             // labelSumTitle_KNM
             // 
             labelSumTitle_KNM.AutoSize = true;
@@ -223,15 +169,45 @@
             labelSumTitle_KNM.TabIndex = 0;
             labelSumTitle_KNM.Text = "Сумма: ";
             // 
-            // labelSumValue_KNM
+            // labelAverageTitle_KNM
             // 
-            labelSumValue_KNM.AutoSize = true;
-            labelSumValue_KNM.Font = new Font("Segoe UI", 12F);
-            labelSumValue_KNM.Location = new Point(296, 307);
-            labelSumValue_KNM.Name = "labelSumValue_KNM";
-            labelSumValue_KNM.Size = new Size(23, 28);
-            labelSumValue_KNM.TabIndex = 1;
-            labelSumValue_KNM.Text = "0";
+            labelAverageTitle_KNM.AutoSize = true;
+            labelAverageTitle_KNM.Font = new Font("Segoe UI", 12F);
+            labelAverageTitle_KNM.Location = new Point(74, 249);
+            labelAverageTitle_KNM.Name = "labelAverageTitle_KNM";
+            labelAverageTitle_KNM.Size = new Size(93, 28);
+            labelAverageTitle_KNM.TabIndex = 0;
+            labelAverageTitle_KNM.Text = "Среднее:";
+            // 
+            // labelMaxTitle_KNM
+            // 
+            labelMaxTitle_KNM.AutoSize = true;
+            labelMaxTitle_KNM.Font = new Font("Segoe UI", 12F);
+            labelMaxTitle_KNM.Location = new Point(74, 194);
+            labelMaxTitle_KNM.Name = "labelMaxTitle_KNM";
+            labelMaxTitle_KNM.Size = new Size(113, 28);
+            labelMaxTitle_KNM.TabIndex = 0;
+            labelMaxTitle_KNM.Text = "Максимум:";
+            // 
+            // labelMinTitle_KNM
+            // 
+            labelMinTitle_KNM.AutoSize = true;
+            labelMinTitle_KNM.Font = new Font("Segoe UI", 12F);
+            labelMinTitle_KNM.Location = new Point(74, 143);
+            labelMinTitle_KNM.Name = "labelMinTitle_KNM";
+            labelMinTitle_KNM.Size = new Size(113, 28);
+            labelMinTitle_KNM.TabIndex = 0;
+            labelMinTitle_KNM.Text = "Минимум: ";
+            // 
+            // labelCountTitle_KNM
+            // 
+            labelCountTitle_KNM.AutoSize = true;
+            labelCountTitle_KNM.Font = new Font("Segoe UI", 12F);
+            labelCountTitle_KNM.Location = new Point(74, 95);
+            labelCountTitle_KNM.Name = "labelCountTitle_KNM";
+            labelCountTitle_KNM.Size = new Size(129, 28);
+            labelCountTitle_KNM.TabIndex = 0;
+            labelCountTitle_KNM.Text = "Количество: ";
             // 
             // FormStatistics
             // 
@@ -255,11 +231,9 @@
 
         private ToolTip toolTipMain_KNM;
         private Panel panelFilters_KNM;
-        private Label labelParametr_KNM;
         private Label labelFiltersTitle_KNM;
         private ComboBox comboBoxEvmType_KNM;
         private Label labelEvmType_KNM;
-        private ComboBox comboBoxParametr_KNM;
         private Panel panelStatistics_KNM;
         private Label labelCountValue_KNM;
         private Label labelCountTitle_KNM;

@@ -10,15 +10,15 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
             => computers.Count;
 
         public static decimal MinPrice(List<Computer> computers)
-            => computers.Min(c => c.Price);
+            => computers.Any() ? computers.Min(c => c.Price) : 0;
 
         public static decimal MaxPrice(List<Computer> computers)
-            => computers.Max(c => c.Price);
+            => computers.Any() ? computers.Max(c => c.Price) : 0;
 
         public static decimal AveragePrice(List<Computer> computers)
-            => computers.Average(c => c.Price);
+            => computers.Any() ? computers.Average(c => c.Price) : 0;
 
         public static decimal SumPrice(List<Computer> computers)
-            => computers.Sum(c => c.Price);
+            => computers.Any() ? computers.Sum(c => c.Price) : 0;
     }
 }

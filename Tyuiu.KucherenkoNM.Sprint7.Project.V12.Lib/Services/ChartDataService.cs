@@ -6,11 +6,14 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
 {
     public static class ChartDataService
     {
-        public static Dictionary<string, int> CountByEvmType(List<Computer> computers)
+        public static Dictionary<string, decimal> AveragePriceByEvmType(List<Computer> computers)
         {
             return computers
                 .GroupBy(c => c.EvmType)
-                .ToDictionary(g => g.Key, g => g.Count());
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.Average(x => x.Price)
+                );
         }
     }
 }

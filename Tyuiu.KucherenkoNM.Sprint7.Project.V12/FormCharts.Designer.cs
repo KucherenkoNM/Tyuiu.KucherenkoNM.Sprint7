@@ -32,15 +32,13 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             panelFilters_KNM = new Panel();
+            comboBoxParametr_KNM = new ComboBox();
+            labelParametr_KNM = new Label();
+            comboBoxChartType_KNM = new ComboBox();
+            labelChartType_KNM = new Label();
+            labelFiltersTitle_KNM = new Label();
             panelChart_KNM = new Panel();
             chartMain_KNM = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            labelFiltersTitle_KNM = new Label();
-            labelChartType_KNM = new Label();
-            comboBoxChartType_KNM = new ComboBox();
-            labelParameter_KNM = new Label();
-            comboBoxParameter_KNM = new ComboBox();
-            labelEvmType_KNM = new Label();
-            comboBoxEvmType_KNM = new ComboBox();
             panelFilters_KNM.SuspendLayout();
             panelChart_KNM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chartMain_KNM).BeginInit();
@@ -48,10 +46,8 @@
             // 
             // panelFilters_KNM
             // 
-            panelFilters_KNM.Controls.Add(comboBoxEvmType_KNM);
-            panelFilters_KNM.Controls.Add(labelEvmType_KNM);
-            panelFilters_KNM.Controls.Add(comboBoxParameter_KNM);
-            panelFilters_KNM.Controls.Add(labelParameter_KNM);
+            panelFilters_KNM.Controls.Add(comboBoxParametr_KNM);
+            panelFilters_KNM.Controls.Add(labelParametr_KNM);
             panelFilters_KNM.Controls.Add(comboBoxChartType_KNM);
             panelFilters_KNM.Controls.Add(labelChartType_KNM);
             panelFilters_KNM.Controls.Add(labelFiltersTitle_KNM);
@@ -60,6 +56,54 @@
             panelFilters_KNM.Name = "panelFilters_KNM";
             panelFilters_KNM.Size = new Size(280, 450);
             panelFilters_KNM.TabIndex = 0;
+            // 
+            // comboBoxParametr_KNM
+            // 
+            comboBoxParametr_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxParametr_KNM.FormattingEnabled = true;
+            comboBoxParametr_KNM.Location = new Point(54, 169);
+            comboBoxParametr_KNM.Name = "comboBoxParametr_KNM";
+            comboBoxParametr_KNM.Size = new Size(151, 28);
+            comboBoxParametr_KNM.TabIndex = 2;
+            comboBoxParametr_KNM.SelectedIndexChanged += comboBoxParametr_KNM_SelectedIndexChanged;
+            // 
+            // labelParametr_KNM
+            // 
+            labelParametr_KNM.AutoSize = true;
+            labelParametr_KNM.Location = new Point(96, 146);
+            labelParametr_KNM.Name = "labelParametr_KNM";
+            labelParametr_KNM.Size = new Size(79, 20);
+            labelParametr_KNM.TabIndex = 1;
+            labelParametr_KNM.Text = "Параметр";
+            // 
+            // comboBoxChartType_KNM
+            // 
+            comboBoxChartType_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxChartType_KNM.FormattingEnabled = true;
+            comboBoxChartType_KNM.Location = new Point(54, 75);
+            comboBoxChartType_KNM.Name = "comboBoxChartType_KNM";
+            comboBoxChartType_KNM.Size = new Size(151, 28);
+            comboBoxChartType_KNM.TabIndex = 2;
+            comboBoxChartType_KNM.SelectedIndexChanged += comboBoxChartType_KNM_SelectedIndexChanged;
+            // 
+            // labelChartType_KNM
+            // 
+            labelChartType_KNM.AutoSize = true;
+            labelChartType_KNM.Location = new Point(76, 52);
+            labelChartType_KNM.Name = "labelChartType_KNM";
+            labelChartType_KNM.Size = new Size(120, 20);
+            labelChartType_KNM.TabIndex = 1;
+            labelChartType_KNM.Text = "Тип диаграммы";
+            // 
+            // labelFiltersTitle_KNM
+            // 
+            labelFiltersTitle_KNM.AutoSize = true;
+            labelFiltersTitle_KNM.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            labelFiltersTitle_KNM.Location = new Point(12, 9);
+            labelFiltersTitle_KNM.Name = "labelFiltersTitle_KNM";
+            labelFiltersTitle_KNM.Size = new Size(246, 28);
+            labelFiltersTitle_KNM.TabIndex = 0;
+            labelFiltersTitle_KNM.Text = "Параметры диаграммы";
             // 
             // panelChart_KNM
             // 
@@ -79,6 +123,7 @@
             chartMain_KNM.Legends.Add(legend1);
             chartMain_KNM.Location = new Point(0, 0);
             chartMain_KNM.Name = "chartMain_KNM";
+            chartMain_KNM.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Light;
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
@@ -86,70 +131,6 @@
             chartMain_KNM.Size = new Size(520, 450);
             chartMain_KNM.TabIndex = 0;
             chartMain_KNM.Text = "chart1";
-            // 
-            // labelFiltersTitle_KNM
-            // 
-            labelFiltersTitle_KNM.AutoSize = true;
-            labelFiltersTitle_KNM.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            labelFiltersTitle_KNM.Location = new Point(12, 9);
-            labelFiltersTitle_KNM.Name = "labelFiltersTitle_KNM";
-            labelFiltersTitle_KNM.Size = new Size(246, 28);
-            labelFiltersTitle_KNM.TabIndex = 0;
-            labelFiltersTitle_KNM.Text = "Параметры диаграммы";
-            // 
-            // labelChartType_KNM
-            // 
-            labelChartType_KNM.AutoSize = true;
-            labelChartType_KNM.Location = new Point(76, 52);
-            labelChartType_KNM.Name = "labelChartType_KNM";
-            labelChartType_KNM.Size = new Size(120, 20);
-            labelChartType_KNM.TabIndex = 1;
-            labelChartType_KNM.Text = "Тип диаграммы";
-            // 
-            // comboBoxChartType_KNM
-            // 
-            comboBoxChartType_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxChartType_KNM.FormattingEnabled = true;
-            comboBoxChartType_KNM.Location = new Point(54, 75);
-            comboBoxChartType_KNM.Name = "comboBoxChartType_KNM";
-            comboBoxChartType_KNM.Size = new Size(151, 28);
-            comboBoxChartType_KNM.TabIndex = 2;
-            // 
-            // labelParameter_KNM
-            // 
-            labelParameter_KNM.AutoSize = true;
-            labelParameter_KNM.Location = new Point(88, 139);
-            labelParameter_KNM.Name = "labelParameter_KNM";
-            labelParameter_KNM.Size = new Size(89, 20);
-            labelParameter_KNM.TabIndex = 1;
-            labelParameter_KNM.Text = "Показатель";
-            // 
-            // comboBoxParameter_KNM
-            // 
-            comboBoxParameter_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxParameter_KNM.FormattingEnabled = true;
-            comboBoxParameter_KNM.Location = new Point(54, 162);
-            comboBoxParameter_KNM.Name = "comboBoxParameter_KNM";
-            comboBoxParameter_KNM.Size = new Size(151, 28);
-            comboBoxParameter_KNM.TabIndex = 2;
-            // 
-            // labelEvmType_KNM
-            // 
-            labelEvmType_KNM.AutoSize = true;
-            labelEvmType_KNM.Location = new Point(97, 234);
-            labelEvmType_KNM.Name = "labelEvmType_KNM";
-            labelEvmType_KNM.Size = new Size(70, 20);
-            labelEvmType_KNM.TabIndex = 1;
-            labelEvmType_KNM.Text = "Тип ЭВМ";
-            // 
-            // comboBoxEvmType_KNM
-            // 
-            comboBoxEvmType_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxEvmType_KNM.FormattingEnabled = true;
-            comboBoxEvmType_KNM.Location = new Point(54, 257);
-            comboBoxEvmType_KNM.Name = "comboBoxEvmType_KNM";
-            comboBoxEvmType_KNM.Size = new Size(151, 28);
-            comboBoxEvmType_KNM.TabIndex = 2;
             // 
             // FormCharts
             // 
@@ -177,9 +158,7 @@
         private ComboBox comboBoxChartType_KNM;
         private Label labelChartType_KNM;
         private Label labelFiltersTitle_KNM;
-        private ComboBox comboBoxEvmType_KNM;
-        private Label labelEvmType_KNM;
-        private ComboBox comboBoxParameter_KNM;
-        private Label labelParameter_KNM;
+        private ComboBox comboBoxParametr_KNM;
+        private Label labelParametr_KNM;
     }
 }

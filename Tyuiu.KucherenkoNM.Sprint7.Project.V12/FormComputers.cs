@@ -143,22 +143,18 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
             bool highlight = false;
 
             if (!string.IsNullOrWhiteSpace(textBoxSearch_KNM.Text))
-                highlight |= e.Value.ToString()
+            {
+                highlight = e.Value.ToString()
                     .IndexOf(textBoxSearch_KNM.Text, StringComparison.OrdinalIgnoreCase) >= 0;
-
-            if (comboBoxEvmType_KNM.SelectedItem != null)
-                highlight |= item.EvmType == comboBoxEvmType_KNM.SelectedItem.ToString();
-
-            if (highlight)
-            {
-                row.DefaultCellStyle.BackColor = Color.LightYellow;
-                row.DefaultCellStyle.ForeColor = Color.Black;
             }
-            else
-            {
-                row.DefaultCellStyle.BackColor = Color.White;
-                row.DefaultCellStyle.ForeColor = Color.Black;
-            }
+
+            row.DefaultCellStyle.BackColor = highlight ? Color.LightYellow : Color.White;
+            row.DefaultCellStyle.ForeColor = Color.Black;
         }
+        public List<Computer> GetComputers()
+        {
+            return computers_KNM;
+        }
+
     }
 }

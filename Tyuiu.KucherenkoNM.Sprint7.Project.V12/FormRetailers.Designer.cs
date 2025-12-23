@@ -41,6 +41,7 @@
             labelFiltersTitle_KNM = new Label();
             dataGridViewRetailer_KNM = new DataGridView();
             toolTipMain_KNM = new ToolTip(components);
+            labelRetailer_KNM = new Label();
             panelTop_KNM.SuspendLayout();
             panelFilter_KNM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewRetailer_KNM).BeginInit();
@@ -48,6 +49,7 @@
             // 
             // panelTop_KNM
             // 
+            panelTop_KNM.Controls.Add(labelRetailer_KNM);
             panelTop_KNM.Controls.Add(buttonDeleteRetailer_KNM);
             panelTop_KNM.Controls.Add(buttonAddRetailer_KNM);
             panelTop_KNM.Dock = DockStyle.Top;
@@ -66,6 +68,7 @@
             buttonDeleteRetailer_KNM.TabIndex = 0;
             toolTipMain_KNM.SetToolTip(buttonDeleteRetailer_KNM, "Удалить фирму-реализатора");
             buttonDeleteRetailer_KNM.UseVisualStyleBackColor = true;
+            buttonDeleteRetailer_KNM.Click += buttonDeleteRetailer_KNM_Click;
             // 
             // buttonAddRetailer_KNM
             // 
@@ -77,6 +80,7 @@
             buttonAddRetailer_KNM.TabIndex = 0;
             toolTipMain_KNM.SetToolTip(buttonAddRetailer_KNM, "Добавить фирму-реализатора");
             buttonAddRetailer_KNM.UseVisualStyleBackColor = true;
+            buttonAddRetailer_KNM.Click += buttonAddRetailer_KNM_Click;
             // 
             // panelFilter_KNM
             // 
@@ -103,6 +107,7 @@
             buttonResetFilters_KNM.TabIndex = 9;
             buttonResetFilters_KNM.Text = "Сброс фильтров";
             buttonResetFilters_KNM.UseVisualStyleBackColor = true;
+            buttonResetFilters_KNM.Click += buttonResetFilters_KNM_Click;
             // 
             // textBoxCity_KNM
             // 
@@ -110,6 +115,7 @@
             textBoxCity_KNM.Name = "textBoxCity_KNM";
             textBoxCity_KNM.Size = new Size(194, 27);
             textBoxCity_KNM.TabIndex = 5;
+            textBoxCity_KNM.TextChanged += textBoxCity_KNM_TextChanged;
             // 
             // textBoxSearch_KNM
             // 
@@ -117,6 +123,7 @@
             textBoxSearch_KNM.Name = "textBoxSearch_KNM";
             textBoxSearch_KNM.Size = new Size(194, 27);
             textBoxSearch_KNM.TabIndex = 5;
+            textBoxSearch_KNM.TextChanged += textBoxSearch_KNM_TextChanged;
             // 
             // labelCity_KNM
             // 
@@ -159,6 +166,17 @@
             dataGridViewRetailer_KNM.Size = new Size(580, 387);
             dataGridViewRetailer_KNM.TabIndex = 4;
             // 
+            // labelRetailer_KNM
+            // 
+            labelRetailer_KNM.Anchor = AnchorStyles.Right;
+            labelRetailer_KNM.AutoSize = true;
+            labelRetailer_KNM.Font = new Font("Segoe UI Black", 15F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            labelRetailer_KNM.Location = new Point(603, 12);
+            labelRetailer_KNM.Name = "labelRetailer_KNM";
+            labelRetailer_KNM.Size = new Size(185, 35);
+            labelRetailer_KNM.TabIndex = 1;
+            labelRetailer_KNM.Text = "Реализаторы";
+            // 
             // FormRetailers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -172,6 +190,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Фирмы-реализаторы";
             panelTop_KNM.ResumeLayout(false);
+            panelTop_KNM.PerformLayout();
             panelFilter_KNM.ResumeLayout(false);
             panelFilter_KNM.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewRetailer_KNM).EndInit();
@@ -192,5 +211,6 @@
         private Label labelFiltersTitle_KNM;
         private ToolTip toolTipMain_KNM;
         private DataGridView dataGridViewRetailer_KNM;
+        private Label labelRetailer_KNM;
     }
 }

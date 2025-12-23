@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Models;
@@ -8,58 +7,36 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
 {
     public class ProcessorService
     {
-        public List<Processor> LoadFromCsv(string filePath)
+        public List<Processor> Add(List<Processor> processors, Processor processor)
         {
-            var lines = File.ReadAllLines(filePath);
-            var result = new List<Processor>();
+            processors.Add(processor);
+            return processors;
+        }
 
-            foreach (var line in lines.Skip(1))
+        public List<Processor> Remove(List<Processor> processors, int id)
+        {
+            return processors.Where(p => p.Id != id).ToList();
+        }
+
+        public List<Processor> LoadFromCsv(string path)
+        {
+            var list = new List<Processor>();
+            var lines = File.ReadAllLines(path);
+
+            for (int i = 1; i < lines.Length; i++)
             {
-                if (string.IsNullOrWhiteSpace(line))
-                    continue;
+                var p = lines[i].Split(';');
 
-                var row = line.Split(';');
-
-                result.Add(new Processor
+                list.Add(new Processor
                 {
-                    Id = int.Parse(row[0]),
-                    Name = row[1],
-                    Manufacturer = row[2],
-                    Cores = int.Parse(row[3])
+                    Id = int.Parse(p[0]),
+                    Name = p[1],
+                    Manufacturer = p[2],
+                    Cores = int.Parse(p[3])
                 });
             }
 
-            return result;
-        }
-
-        public List<Processor> Filter(
-            List<Processor> source,
-            string searchText,
-            string manufacturer,
-            int? coresFrom,
-            int? coresTo)
-        {
-            var query = source.AsEnumerable();
-
-            if (!string.IsNullOrWhiteSpace(searchText))
-            {
-                var text = searchText.ToLower();
-                query = query.Where(p =>
-                    p.Name.ToLower().Contains(text) ||
-                    p.Manufacturer.ToLower().Contains(text) ||
-                    p.Cores.ToString().Contains(text));
-            }
-
-            if (!string.IsNullOrWhiteSpace(manufacturer))
-                query = query.Where(p => p.Manufacturer == manufacturer);
-
-            if (coresFrom.HasValue)
-                query = query.Where(p => p.Cores >= coresFrom.Value);
-
-            if (coresTo.HasValue)
-                query = query.Where(p => p.Cores <= coresTo.Value);
-
-            return query.ToList();
+            return list;
         }
     }
 }

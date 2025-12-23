@@ -34,8 +34,8 @@
             buttonAddManufacturer_KNM = new Button();
             toolTipMain_KNM = new ToolTip(components);
             panelFilter_KNM = new Panel();
+            comboBoxCountry_KNM = new ComboBox();
             buttonResetFilters_KNM = new Button();
-            textBoxCountry_KNM = new TextBox();
             textBoxSearch_KNM = new TextBox();
             labelCountry_KNM = new Label();
             labelSearch_KNM = new Label();
@@ -66,6 +66,7 @@
             buttonDeleteManufacturer_KNM.TabIndex = 0;
             toolTipMain_KNM.SetToolTip(buttonDeleteManufacturer_KNM, "Удалить выбранную фирму-изготовителя");
             buttonDeleteManufacturer_KNM.UseVisualStyleBackColor = true;
+            buttonDeleteManufacturer_KNM.Click += buttonDeleteManufacturer_KNM_Click;
             // 
             // buttonAddManufacturer_KNM
             // 
@@ -77,12 +78,13 @@
             buttonAddManufacturer_KNM.TabIndex = 0;
             toolTipMain_KNM.SetToolTip(buttonAddManufacturer_KNM, "Добавить фирму-изготовителя");
             buttonAddManufacturer_KNM.UseVisualStyleBackColor = true;
+            buttonAddManufacturer_KNM.Click += buttonAddManufacturer_KNM_Click;
             // 
             // panelFilter_KNM
             // 
             panelFilter_KNM.BackColor = SystemColors.ControlLight;
+            panelFilter_KNM.Controls.Add(comboBoxCountry_KNM);
             panelFilter_KNM.Controls.Add(buttonResetFilters_KNM);
-            panelFilter_KNM.Controls.Add(textBoxCountry_KNM);
             panelFilter_KNM.Controls.Add(textBoxSearch_KNM);
             panelFilter_KNM.Controls.Add(labelCountry_KNM);
             panelFilter_KNM.Controls.Add(labelSearch_KNM);
@@ -94,6 +96,16 @@
             panelFilter_KNM.Size = new Size(220, 387);
             panelFilter_KNM.TabIndex = 2;
             // 
+            // comboBoxCountry_KNM
+            // 
+            comboBoxCountry_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxCountry_KNM.FormattingEnabled = true;
+            comboBoxCountry_KNM.Location = new Point(13, 165);
+            comboBoxCountry_KNM.Name = "comboBoxCountry_KNM";
+            comboBoxCountry_KNM.Size = new Size(194, 28);
+            comboBoxCountry_KNM.TabIndex = 10;
+            comboBoxCountry_KNM.SelectedIndexChanged += comboBoxCountry_KNM_SelectedIndexChanged;
+            // 
             // buttonResetFilters_KNM
             // 
             buttonResetFilters_KNM.FlatStyle = FlatStyle.Flat;
@@ -103,13 +115,7 @@
             buttonResetFilters_KNM.TabIndex = 9;
             buttonResetFilters_KNM.Text = "Сброс фильтров";
             buttonResetFilters_KNM.UseVisualStyleBackColor = true;
-            // 
-            // textBoxCountry_KNM
-            // 
-            textBoxCountry_KNM.Location = new Point(13, 156);
-            textBoxCountry_KNM.Name = "textBoxCountry_KNM";
-            textBoxCountry_KNM.Size = new Size(194, 27);
-            textBoxCountry_KNM.TabIndex = 5;
+            buttonResetFilters_KNM.Click += buttonResetFilters_KNM_Click;
             // 
             // textBoxSearch_KNM
             // 
@@ -117,6 +123,7 @@
             textBoxSearch_KNM.Name = "textBoxSearch_KNM";
             textBoxSearch_KNM.Size = new Size(194, 27);
             textBoxSearch_KNM.TabIndex = 5;
+            textBoxSearch_KNM.TextChanged += textBoxSearch_KNM_TextChanged;
             // 
             // labelCountry_KNM
             // 
@@ -191,6 +198,6 @@
         private Label labelSearch_KNM;
         private Label labelFiltersTitle_KNM;
         private DataGridView dataGridViewManufacturer_KNM;
-        private TextBox textBoxCountry_KNM;
+        private ComboBox comboBoxCountry_KNM;
     }
 }

@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-
 using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Models;
-using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services;
 
 namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
     public partial class FormMain : Form
     {
-        private List<Computer> computers_KNM = new List<Computer>();
-        private List<Processor> processors_KNM = new List<Processor>();
+        private Form currentForm_KNM;
+        private List<Computer> computers_KNM = new();
+
 
         public FormMain()
         {
@@ -18,20 +17,28 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
             AutoScaleMode = AutoScaleMode.Dpi;
         }
 
-
         private void OpenFormInPanel(Form form)
         {
             panelContent_KNM.Controls.Clear();
+            currentForm_KNM = form;
+
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;
+
             panelContent_KNM.Controls.Add(form);
             form.Show();
         }
 
+        public void SetComputers(List<Computer> computers)
+        {
+            computers_KNM = computers;
+        }
+
         private void menuDataComputers_KNM_Click(object sender, EventArgs e)
         {
-            OpenFormInPanel(new FormComputers());
+            var form = new FormComputers();
+            OpenFormInPanel(form);
         }
 
         private void menuDataManufacturers_KNM_Click(object sender, EventArgs e)
@@ -51,44 +58,48 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 
         private void menuAnalyticsStatistics_KNM_Click(object sender, EventArgs e)
         {
-            OpenFormInPanel(new FormStatistics());
+            var form = new FormStatistics();
+            form.SetData(computers_KNM);
+            OpenFormInPanel(form);
         }
 
         private void menuAnalyticsCharts_KNM_Click(object sender, EventArgs e)
         {
-            OpenFormInPanel(new FormCharts());
+            var form = new FormCharts(computers_KNM);
+;
+            OpenFormInPanel(form);
         }
 
         private void menuHelpOpen_KNM_Click(object sender, EventArgs e)
         {
             OpenFormInPanel(new FormHelp());
         }
+
         private void menuFileOpen_KNM_Click(object sender, EventArgs e)
         {
-            if (panelContent_KNM.Controls.Count == 0)
+            if (currentForm_KNM == null)
             {
                 MessageBox.Show("Сначала откройте форму", "Ошибка");
                 return;
             }
 
-            if (panelContent_KNM.Controls[0] is not ICsvOpenable csvForm)
+            if (currentForm_KNM is not ICsvOpenable csvForm)
             {
                 MessageBox.Show("Эта форма не поддерживает загрузку CSV", "Ошибка");
                 return;
             }
 
-            using OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            using OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "CSV files (*.csv)|*.csv";
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
-                csvForm.OpenFromCsv(openFileDialog.FileName);
+                csvForm.OpenFromCsv(dialog.FileName);
 
-                MessageBox.Show(
-                    "Данные успешно загружены",
-                    "Информация",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                if (currentForm_KNM is FormComputers fc)
+                    computers_KNM = fc.GetComputers();
+
+                MessageBox.Show("Данные успешно загружены", "Информация");
             }
         }
 

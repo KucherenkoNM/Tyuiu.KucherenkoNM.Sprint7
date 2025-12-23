@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormComputers));
             panelTop_KNM = new Panel();
+            labelComputer_KNM = new Label();
             buttonDeleteComputer_KNM = new Button();
             buttonAddComputer_KNM = new Button();
             panelFilter_KNM = new Panel();
@@ -53,6 +54,7 @@
             // 
             // panelTop_KNM
             // 
+            panelTop_KNM.Controls.Add(labelComputer_KNM);
             panelTop_KNM.Controls.Add(buttonDeleteComputer_KNM);
             panelTop_KNM.Controls.Add(buttonAddComputer_KNM);
             panelTop_KNM.Dock = DockStyle.Top;
@@ -60,6 +62,17 @@
             panelTop_KNM.Name = "panelTop_KNM";
             panelTop_KNM.Size = new Size(800, 63);
             panelTop_KNM.TabIndex = 0;
+            // 
+            // labelComputer_KNM
+            // 
+            labelComputer_KNM.Anchor = AnchorStyles.Right;
+            labelComputer_KNM.AutoSize = true;
+            labelComputer_KNM.Font = new Font("Segoe UI Black", 15F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            labelComputer_KNM.Location = new Point(602, 12);
+            labelComputer_KNM.Name = "labelComputer_KNM";
+            labelComputer_KNM.Size = new Size(186, 35);
+            labelComputer_KNM.TabIndex = 3;
+            labelComputer_KNM.Text = "Компьютеры";
             // 
             // buttonDeleteComputer_KNM
             // 
@@ -226,6 +239,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Компьютеры";
             panelTop_KNM.ResumeLayout(false);
+            panelTop_KNM.PerformLayout();
             panelFilter_KNM.ResumeLayout(false);
             panelFilter_KNM.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewComputers_KNM).EndInit();
@@ -250,5 +264,6 @@
         private TextBox textBoxPriceFrom_KNM;
         private Button buttonResetFilters_KNM;
         private TextBox textBoxPriceTo_KNM;
+        private Label labelComputer_KNM;
     }
 }

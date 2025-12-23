@@ -49,7 +49,6 @@
             toolStripButtonOpen_KNM = new ToolStripButton();
             toolStripButtonSave_KNM = new ToolStripButton();
             toolStripButtonRefresh_KNM = new ToolStripButton();
-            toolStripButtonChart_KNM = new ToolStripButton();
             toolTip_KNM = new ToolTip(components);
             panelContent_KNM = new Panel();
             labelWelcome_KNM = new Label();
@@ -79,20 +78,20 @@
             // menuFileOpen_KNM
             // 
             menuFileOpen_KNM.Name = "menuFileOpen_KNM";
-            menuFileOpen_KNM.Size = new Size(224, 28);
+            menuFileOpen_KNM.Size = new Size(178, 28);
             menuFileOpen_KNM.Text = "Открыть";
             menuFileOpen_KNM.Click += menuFileOpen_KNM_Click;
             // 
             // menuFileSave_KNM
             // 
             menuFileSave_KNM.Name = "menuFileSave_KNM";
-            menuFileSave_KNM.Size = new Size(224, 28);
+            menuFileSave_KNM.Size = new Size(178, 28);
             menuFileSave_KNM.Text = "Сохранить";
             // 
             // menuFileExit_KNM
             // 
             menuFileExit_KNM.Name = "menuFileExit_KNM";
-            menuFileExit_KNM.Size = new Size(224, 28);
+            menuFileExit_KNM.Size = new Size(178, 28);
             menuFileExit_KNM.Text = "Выход";
             menuFileExit_KNM.Click += menuFileExit_KNM_Click;
             // 
@@ -152,6 +151,7 @@
             menuAnalytics_KNM.Name = "menuAnalytics_KNM";
             menuAnalytics_KNM.Size = new Size(180, 28);
             menuAnalytics_KNM.Text = "Графики";
+            menuAnalytics_KNM.Click += menuAnalyticsCharts_KNM_Click;
             // 
             // menuHelp_KNM
             // 
@@ -171,7 +171,7 @@
             // toolStripMail_KNM
             // 
             toolStripMail_KNM.ImageScalingSize = new Size(40, 40);
-            toolStripMail_KNM.Items.AddRange(new ToolStripItem[] { toolStripButtonOpen_KNM, toolStripButtonSave_KNM, toolStripButtonRefresh_KNM, toolStripButtonChart_KNM });
+            toolStripMail_KNM.Items.AddRange(new ToolStripItem[] { toolStripButtonOpen_KNM, toolStripButtonSave_KNM, toolStripButtonRefresh_KNM });
             toolStripMail_KNM.Location = new Point(0, 31);
             toolStripMail_KNM.Name = "toolStripMail_KNM";
             toolStripMail_KNM.Size = new Size(1026, 47);
@@ -207,16 +207,6 @@
             toolStripButtonRefresh_KNM.Size = new Size(44, 44);
             toolStripButtonRefresh_KNM.Text = "toolStripButton3";
             toolStripButtonRefresh_KNM.ToolTipText = "Обновить данные";
-            // 
-            // toolStripButtonChart_KNM
-            // 
-            toolStripButtonChart_KNM.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButtonChart_KNM.Image = (Image)resources.GetObject("toolStripButtonChart_KNM.Image");
-            toolStripButtonChart_KNM.ImageTransparentColor = Color.Magenta;
-            toolStripButtonChart_KNM.Name = "toolStripButtonChart_KNM";
-            toolStripButtonChart_KNM.Size = new Size(44, 44);
-            toolStripButtonChart_KNM.Text = "toolStripButton4";
-            toolStripButtonChart_KNM.ToolTipText = "Открыть график";
             // 
             // panelContent_KNM
             // 
@@ -287,7 +277,6 @@
         private ToolStripButton toolStripButtonSave_KNM;
         private ToolStripButton toolStripButtonRefresh_KNM;
         private ToolTip toolTip_KNM;
-        private ToolStripButton toolStripButtonChart_KNM;
         private Panel panelContent_KNM;
         private Label labelWelcome_KNM;
     }

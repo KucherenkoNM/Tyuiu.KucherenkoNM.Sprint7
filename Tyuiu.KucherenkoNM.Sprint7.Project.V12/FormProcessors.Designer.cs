@@ -45,6 +45,7 @@
             panelFilter_KNM = new Panel();
             comboBoxManufacturer_KNM = new ComboBox();
             dataGridViewProcessors_KNM = new DataGridView();
+            labelProcessors_KNM = new Label();
             panelTop_KNM.SuspendLayout();
             panelFilter_KNM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProcessors_KNM).BeginInit();
@@ -76,6 +77,7 @@
             // 
             // panelTop_KNM
             // 
+            panelTop_KNM.Controls.Add(labelProcessors_KNM);
             panelTop_KNM.Controls.Add(buttonDeleteProcessor_KNM);
             panelTop_KNM.Controls.Add(buttonAddProcessor_KNM);
             panelTop_KNM.Dock = DockStyle.Top;
@@ -209,6 +211,17 @@
             dataGridViewProcessors_KNM.Size = new Size(580, 387);
             dataGridViewProcessors_KNM.TabIndex = 3;
             // 
+            // labelProcessors_KNM
+            // 
+            labelProcessors_KNM.Anchor = AnchorStyles.Right;
+            labelProcessors_KNM.AutoSize = true;
+            labelProcessors_KNM.Font = new Font("Segoe UI Black", 15F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            labelProcessors_KNM.Location = new Point(612, 12);
+            labelProcessors_KNM.Name = "labelProcessors_KNM";
+            labelProcessors_KNM.Size = new Size(176, 35);
+            labelProcessors_KNM.TabIndex = 3;
+            labelProcessors_KNM.Text = "Процессоры";
+            // 
             // FormProcessors
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -222,6 +235,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Процессоры";
             panelTop_KNM.ResumeLayout(false);
+            panelTop_KNM.PerformLayout();
             panelFilter_KNM.ResumeLayout(false);
             panelFilter_KNM.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProcessors_KNM).EndInit();
@@ -246,5 +260,6 @@
         private Panel panelFilter_KNM;
         private DataGridView dataGridViewProcessors_KNM;
         private ComboBox comboBoxManufacturer_KNM;
+        private Label labelProcessors_KNM;
     }
 }
