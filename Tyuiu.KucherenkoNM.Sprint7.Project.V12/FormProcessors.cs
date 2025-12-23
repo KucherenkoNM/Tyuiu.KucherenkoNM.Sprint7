@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿#nullable disable
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Models;
@@ -9,73 +11,151 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
     public partial class FormProcessors : Form, ICsvOpenable
     {
-        private readonly ProcessorService processorService_KNM = new ProcessorService();
-        private List<Processor> processors_KNM = new List<Processor>();
+        private readonly ProcessorService processorService = new ProcessorService();
+        private readonly BindingSource bindingSource = new BindingSource();
+        private List<Processor> processors = new();
 
         public FormProcessors()
         {
             InitializeComponent();
+
+            dataGridViewProcessors_KNM.AutoGenerateColumns = true;
+            dataGridViewProcessors_KNM.AllowUserToAddRows = false;
+            dataGridViewProcessors_KNM.DataSource = bindingSource;
+
+            dataGridViewProcessors_KNM.CellFormatting += DataGridViewProcessors_KNM_CellFormatting;
         }
 
         public void OpenFromCsv(string filePath)
         {
-            processors_KNM = processorService_KNM.LoadFromCsv(filePath);
-            dataGridViewProcessors_KNM.DataSource = processors_KNM;
+            processors = processorService.LoadFromCsv(filePath);
 
-            comboBoxManufacturer_KNM.Items.Clear();
-            comboBoxManufacturer_KNM.Items.Add("");
+            bindingSource.DataSource = processors;
 
-            foreach (var m in processors_KNM.Select(p => p.Manufacturer).Distinct())
-                comboBoxManufacturer_KNM.Items.Add(m);
+            FillManufacturers();
         }
 
-        private void textBoxSearch_KNM_TextChanged(object sender, System.EventArgs e)
+        private void FillManufacturers()
         {
-            ApplyFilters();
-        }
+            var manufacturers = processors
+                .Select(p => p.Manufacturer)
+                .Where(m => !string.IsNullOrWhiteSpace(m))
+                .Distinct()
+                .ToList();
 
-        private void comboBoxManufacturer_KNM_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            ApplyFilters();
-        }
+            manufacturers.Insert(0, "Все");
 
-        private void textBoxFrequencyFrom_KNM_TextChanged(object sender, System.EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void textBoxFrequencyTo_KNM_TextChanged(object sender, System.EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void buttonResetFilters_KNM_Click(object sender, System.EventArgs e)
-        {
-            textBoxSearch_KNM.Clear();
-            comboBoxManufacturer_KNM.SelectedIndex = -1;
-            textBoxFrequencyFrom_KNM.Clear();
-            textBoxFrequencyTo_KNM.Clear();
-            dataGridViewProcessors_KNM.DataSource = processors_KNM;
+            comboBoxManufacturer_KNM.DataSource = manufacturers;
+            comboBoxManufacturer_KNM.SelectedIndex = 0;
         }
 
         private void ApplyFilters()
         {
-            decimal? from = null;
-            decimal? to = null;
+            IEnumerable<Processor> filtered = processors;
 
-            if (decimal.TryParse(textBoxFrequencyFrom_KNM.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var f))
-                from = f;
+            string searchText = textBoxSearch_KNM.Text;
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                string text = searchText.ToLower();
 
-            if (decimal.TryParse(textBoxFrequencyTo_KNM.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var t))
-                to = t;
+                filtered = filtered.Where(p =>
+                    p.Id.ToString().Contains(text) ||
+                    p.Name.ToLower().Contains(text) ||
+                    p.Manufacturer.ToLower().Contains(text) ||
+                    p.Cores.ToString().Contains(text)
+                );
+            }
 
-            dataGridViewProcessors_KNM.DataSource =
-                processorService_KNM.Filter(
-                    processors_KNM,
-                    textBoxSearch_KNM.Text,
-                    comboBoxManufacturer_KNM.Text,
-                    from,
-                    to);
+            if (comboBoxManufacturer_KNM.SelectedItem != null &&
+                comboBoxManufacturer_KNM.SelectedItem.ToString() != "Все")
+            {
+                string manufacturer = comboBoxManufacturer_KNM.SelectedItem.ToString();
+                filtered = filtered.Where(p => p.Manufacturer == manufacturer);
+            }
+
+            if (int.TryParse(textBoxCoresFrom_KNM.Text, out int from))
+                filtered = filtered.Where(p => p.Cores >= from);
+
+            if (int.TryParse(textBoxCoresTo_KNM.Text, out int to))
+                filtered = filtered.Where(p => p.Cores <= to);
+
+            bindingSource.DataSource = filtered.ToList();
+            dataGridViewProcessors_KNM.ClearSelection();
         }
+
+        private void textBoxSearch_KNM_TextChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void comboBoxManufacturer_KNM_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void textBoxCoresFrom_KNM_TextChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void textBoxCoresTo_KNM_TextChanged(object sender, EventArgs e)
+        {
+            ApplyFilters();
+        }
+
+        private void buttonResetFilters_KNM_Click(object sender, EventArgs e)
+        {
+            textBoxSearch_KNM.Clear();
+            textBoxCoresFrom_KNM.Clear();
+            textBoxCoresTo_KNM.Clear();
+            comboBoxManufacturer_KNM.SelectedIndex = 0;
+
+            bindingSource.DataSource = processors;
+        }
+
+        private void DataGridViewProcessors_KNM_CellFormatting(
+            object sender,
+            DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value == null)
+                return;
+
+            bool highlight = false;
+
+            if (!string.IsNullOrWhiteSpace(textBoxSearch_KNM.Text))
+            {
+                highlight = e.Value.ToString()
+                    .IndexOf(textBoxSearch_KNM.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+            }
+
+            if (comboBoxManufacturer_KNM.SelectedItem != null &&
+                comboBoxManufacturer_KNM.SelectedItem.ToString() != "Все" &&
+                e.Value.ToString()
+                    .Equals(comboBoxManufacturer_KNM.SelectedItem.ToString(),
+                        StringComparison.OrdinalIgnoreCase))
+            {
+                highlight = true;
+            }
+
+            e.CellStyle.BackColor = highlight ? Color.LightYellow : Color.White;
+            e.CellStyle.ForeColor = Color.Black;
+        }
+        private void buttonAddProcessor_KNM_Click(object sender, EventArgs e)
+        {
+            var p = new Processor();
+            processors.Add(p);
+            ApplyFilters();
+            bindingSource.Position = bindingSource.IndexOf(p);
+        }
+
+        private void buttonDeleteProcessor_KNM_Click(object sender, EventArgs e)
+        {
+            if (bindingSource.Current is Processor p)
+            {
+                processors.Remove(p);
+                ApplyFilters();
+            }
+        }
+
     }
 }

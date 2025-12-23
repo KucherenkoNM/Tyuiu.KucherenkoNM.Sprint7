@@ -208,7 +208,6 @@
             dataGridViewComputers_KNM.Location = new Point(220, 63);
             dataGridViewComputers_KNM.MultiSelect = false;
             dataGridViewComputers_KNM.Name = "dataGridViewComputers_KNM";
-            dataGridViewComputers_KNM.RowHeadersVisible = false;
             dataGridViewComputers_KNM.RowHeadersWidth = 51;
             dataGridViewComputers_KNM.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewComputers_KNM.Size = new Size(580, 387);

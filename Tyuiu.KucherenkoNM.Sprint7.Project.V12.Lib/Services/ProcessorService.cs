@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -9,27 +8,25 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
 {
     public class ProcessorService
     {
-        public List<Processor> LoadFromCsv(string path)
+        public List<Processor> LoadFromCsv(string filePath)
         {
+            var lines = File.ReadAllLines(filePath);
             var result = new List<Processor>();
-            var lines = File.ReadAllLines(path).Skip(1);
 
-            foreach (var line in lines)
+            foreach (var line in lines.Skip(1))
             {
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
                 var row = line.Split(';');
 
-                var processor = new Processor
+                result.Add(new Processor
                 {
                     Id = int.Parse(row[0]),
                     Name = row[1],
                     Manufacturer = row[2],
                     Cores = int.Parse(row[3])
-                };
-
-                result.Add(processor);
+                });
             }
 
             return result;
@@ -45,8 +42,13 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
             var query = source.AsEnumerable();
 
             if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                var text = searchText.ToLower();
                 query = query.Where(p =>
-                    p.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+                    p.Name.ToLower().Contains(text) ||
+                    p.Manufacturer.ToLower().Contains(text) ||
+                    p.Cores.ToString().Contains(text));
+            }
 
             if (!string.IsNullOrWhiteSpace(manufacturer))
                 query = query.Where(p => p.Manufacturer == manufacturer);

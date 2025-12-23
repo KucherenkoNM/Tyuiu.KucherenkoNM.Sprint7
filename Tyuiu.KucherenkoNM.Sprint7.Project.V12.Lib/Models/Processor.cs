@@ -7,5 +7,4 @@
         public string Manufacturer { get; set; } = string.Empty;
         public int Cores { get; set; }
     }
-
 }

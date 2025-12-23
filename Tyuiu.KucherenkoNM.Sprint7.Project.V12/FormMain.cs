@@ -31,7 +31,7 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 
         private void menuDataComputers_KNM_Click(object sender, EventArgs e)
         {
-            OpenFormInPanel(new FormComputers(computers_KNM));
+            OpenFormInPanel(new FormComputers());
         }
 
         private void menuDataManufacturers_KNM_Click(object sender, EventArgs e)
