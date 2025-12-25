@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -7,14 +6,13 @@ using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services;
 
 namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    public partial class FormCharts : Form
+    public partial class FormCharts : Form, IEditableData
     {
         private DataManager dataManager;
 
         public FormCharts()
         {
             InitializeComponent();
-            KeyPreview = true;
 
             comboBoxChartType_KNM.Items.AddRange(new[]
             {
@@ -41,6 +39,10 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
             BuildChart();
         }
 
+        public void Load(string path) { }
+        public void Save(string path) { }
+        public void RefreshData() => BuildChart();
+
         private void ComboChanged(object sender, EventArgs e)
         {
             BuildChart();
@@ -62,6 +64,7 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
             var area = new ChartArea("Main");
             area.AxisX.Interval = 1;
             chartMain_KNM.ChartAreas.Add(area);
+
             chartMain_KNM.Legends.Add(new Legend());
 
             var chartType = comboBoxChartType_KNM.SelectedItem.ToString();
@@ -76,6 +79,9 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
                     AvgPrice = (double)g.Average(x => x.Price)
                 })
                 .ToList();
+
+            if (!groups.Any())
+                return;
 
             if (chartType == "Круговая")
             {
@@ -93,9 +99,7 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 
                     var p = series.Points.Add(value);
                     p.LegendText = g.Name;
-                    p.Label = param.StartsWith("Количество")
-                        ? g.Count.ToString()
-                        : g.AvgPrice.ToString("0.##");
+                    p.Label = value.ToString("0.##");
                 }
 
                 chartMain_KNM.Series.Add(series);
@@ -104,44 +108,21 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 
             foreach (var g in groups)
             {
+                double value = param.StartsWith("Количество")
+                    ? g.Count
+                    : g.AvgPrice;
+
                 var series = new Series(g.Name)
                 {
                     ChartType = SeriesChartType.Column,
                     IsValueShownAsLabel = true
                 };
 
-                if (param.StartsWith("Количество"))
-                {
-                    int index = series.Points.AddXY(g.Name, g.Count);
-                    series.Points[index].Label = g.Count.ToString();
-                }
-                else
-                {
-                    int index = series.Points.AddXY(g.Name, g.AvgPrice);
-                    series.Points[index].Label = g.AvgPrice.ToString("0.##");
-                }
+                int index = series.Points.AddXY(param, value);
+                series.Points[index].Label = value.ToString("0.##");
 
                 chartMain_KNM.Series.Add(series);
             }
-        }
-        private void comboBoxChartType_KNM_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BuildChart();
-        }
-
-        private void comboBoxParametr_KNM_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BuildChart();
-        }
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Escape)
-            {
-                Close();
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
         }
 
     }

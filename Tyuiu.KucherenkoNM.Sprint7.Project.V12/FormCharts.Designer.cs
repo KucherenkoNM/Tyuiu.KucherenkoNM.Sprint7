@@ -65,7 +65,6 @@
             comboBoxParametr_KNM.Name = "comboBoxParametr_KNM";
             comboBoxParametr_KNM.Size = new Size(234, 28);
             comboBoxParametr_KNM.TabIndex = 2;
-            comboBoxParametr_KNM.SelectedIndexChanged += comboBoxParametr_KNM_SelectedIndexChanged;
             // 
             // labelParametr_KNM
             // 
@@ -84,7 +83,6 @@
             comboBoxChartType_KNM.Name = "comboBoxChartType_KNM";
             comboBoxChartType_KNM.Size = new Size(234, 28);
             comboBoxChartType_KNM.TabIndex = 2;
-            comboBoxChartType_KNM.SelectedIndexChanged += comboBoxChartType_KNM_SelectedIndexChanged;
             // 
             // labelChartType_KNM
             // 

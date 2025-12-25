@@ -43,7 +43,6 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
                 currentForm.Close();
                 currentForm.Dispose();
                 currentForm = null;
-
                 labelWelcome_KNM.Visible = true;
             }
         }
@@ -81,14 +80,12 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 
         private void menuAnalyticsStatistics_KNM_Click(object sender, EventArgs e)
         {
-            var form = new FormStatistics();
-            OpenFormInPanel(form);
+            OpenFormInPanel(new FormStatistics());
         }
 
         private void menuAnalyticsCharts_KNM_Click(object sender, EventArgs e)
         {
-            var form = new FormCharts();
-            OpenFormInPanel(form);
+            OpenFormInPanel(new FormCharts());
         }
 
         private void menuHelpOpen_KNM_Click(object sender, EventArgs e)
