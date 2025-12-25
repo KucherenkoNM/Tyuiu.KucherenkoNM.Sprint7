@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Models;
 
 namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
@@ -30,15 +31,12 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
 
                 var p = lines[i].Split(';');
 
-                if (p.Length <= new[] { idIndex, nameIndex, addressIndex, phoneIndex, noteIndex }.Max())
-                    continue;
-
                 if (!int.TryParse(p[idIndex], out int id))
                     continue;
 
                 list.Add(new Retailer
                 {
-                    RetailerId = id,
+                    Id = id,
                     Name = p[nameIndex],
                     Address = p[addressIndex],
                     Phone = p[phoneIndex],
@@ -49,15 +47,17 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
             return list;
         }
 
-        public List<Retailer> Add(List<Retailer> retailers, Retailer retailer)
+        public void SaveToCsv(string path, List<Retailer> retailers)
         {
-            retailers.Add(retailer);
-            return retailers;
-        }
+            var sb = new StringBuilder();
+            sb.AppendLine("Идентификатор фирмы реализатора;Наименование фирмы;Адрес;Телефон;Примечание");
 
-        public List<Retailer> Remove(List<Retailer> retailers, int id)
-        {
-            return retailers.Where(r => r.RetailerId != id).ToList();
+            foreach (var r in retailers)
+            {
+                sb.AppendLine($"{r.Id};{r.Name};{r.Address};{r.Phone};{r.Note}");
+            }
+
+            File.WriteAllText(path, sb.ToString(), Encoding.UTF8);
         }
     }
 }

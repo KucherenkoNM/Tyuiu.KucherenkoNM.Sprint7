@@ -15,6 +15,17 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
         public FormHelp()
         {
             InitializeComponent();
+            KeyPreview = true;
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
     }

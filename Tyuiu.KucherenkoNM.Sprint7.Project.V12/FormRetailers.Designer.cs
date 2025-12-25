@@ -30,18 +30,18 @@
         {
             components = new System.ComponentModel.Container();
             panelTop_KNM = new Panel();
+            labelRetailer_KNM = new Label();
             buttonDeleteRetailer_KNM = new Button();
             buttonAddRetailer_KNM = new Button();
             panelFilter_KNM = new Panel();
+            comboBoxCity_KNM = new ComboBox();
             buttonResetFilters_KNM = new Button();
-            textBoxCity_KNM = new TextBox();
             textBoxSearch_KNM = new TextBox();
             labelCity_KNM = new Label();
             labelSearch_KNM = new Label();
             labelFiltersTitle_KNM = new Label();
             dataGridViewRetailer_KNM = new DataGridView();
             toolTipMain_KNM = new ToolTip(components);
-            labelRetailer_KNM = new Label();
             panelTop_KNM.SuspendLayout();
             panelFilter_KNM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewRetailer_KNM).BeginInit();
@@ -57,6 +57,17 @@
             panelTop_KNM.Name = "panelTop_KNM";
             panelTop_KNM.Size = new Size(800, 63);
             panelTop_KNM.TabIndex = 1;
+            // 
+            // labelRetailer_KNM
+            // 
+            labelRetailer_KNM.Anchor = AnchorStyles.Right;
+            labelRetailer_KNM.AutoSize = true;
+            labelRetailer_KNM.Font = new Font("Segoe UI Black", 15F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            labelRetailer_KNM.Location = new Point(603, 12);
+            labelRetailer_KNM.Name = "labelRetailer_KNM";
+            labelRetailer_KNM.Size = new Size(185, 35);
+            labelRetailer_KNM.TabIndex = 1;
+            labelRetailer_KNM.Text = "Реализаторы";
             // 
             // buttonDeleteRetailer_KNM
             // 
@@ -85,8 +96,8 @@
             // panelFilter_KNM
             // 
             panelFilter_KNM.BackColor = SystemColors.ControlLight;
+            panelFilter_KNM.Controls.Add(comboBoxCity_KNM);
             panelFilter_KNM.Controls.Add(buttonResetFilters_KNM);
-            panelFilter_KNM.Controls.Add(textBoxCity_KNM);
             panelFilter_KNM.Controls.Add(textBoxSearch_KNM);
             panelFilter_KNM.Controls.Add(labelCity_KNM);
             panelFilter_KNM.Controls.Add(labelSearch_KNM);
@@ -98,6 +109,15 @@
             panelFilter_KNM.Size = new Size(220, 387);
             panelFilter_KNM.TabIndex = 3;
             // 
+            // comboBoxCity_KNM
+            // 
+            comboBoxCity_KNM.FormattingEnabled = true;
+            comboBoxCity_KNM.Location = new Point(12, 167);
+            comboBoxCity_KNM.Name = "comboBoxCity_KNM";
+            comboBoxCity_KNM.Size = new Size(195, 28);
+            comboBoxCity_KNM.TabIndex = 10;
+            comboBoxCity_KNM.SelectedIndexChanged += comboBoxCity_KNM_SelectedIndexChanged;
+            // 
             // buttonResetFilters_KNM
             // 
             buttonResetFilters_KNM.FlatStyle = FlatStyle.Flat;
@@ -108,14 +128,6 @@
             buttonResetFilters_KNM.Text = "Сброс фильтров";
             buttonResetFilters_KNM.UseVisualStyleBackColor = true;
             buttonResetFilters_KNM.Click += buttonResetFilters_KNM_Click;
-            // 
-            // textBoxCity_KNM
-            // 
-            textBoxCity_KNM.Location = new Point(13, 156);
-            textBoxCity_KNM.Name = "textBoxCity_KNM";
-            textBoxCity_KNM.Size = new Size(194, 27);
-            textBoxCity_KNM.TabIndex = 5;
-            textBoxCity_KNM.TextChanged += textBoxCity_KNM_TextChanged;
             // 
             // textBoxSearch_KNM
             // 
@@ -166,17 +178,6 @@
             dataGridViewRetailer_KNM.Size = new Size(580, 387);
             dataGridViewRetailer_KNM.TabIndex = 4;
             // 
-            // labelRetailer_KNM
-            // 
-            labelRetailer_KNM.Anchor = AnchorStyles.Right;
-            labelRetailer_KNM.AutoSize = true;
-            labelRetailer_KNM.Font = new Font("Segoe UI Black", 15F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            labelRetailer_KNM.Location = new Point(603, 12);
-            labelRetailer_KNM.Name = "labelRetailer_KNM";
-            labelRetailer_KNM.Size = new Size(185, 35);
-            labelRetailer_KNM.TabIndex = 1;
-            labelRetailer_KNM.Text = "Реализаторы";
-            // 
             // FormRetailers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -204,7 +205,6 @@
         private Button buttonAddRetailer_KNM;
         private Panel panelFilter_KNM;
         private Button buttonResetFilters_KNM;
-        private TextBox textBoxCity_KNM;
         private TextBox textBoxSearch_KNM;
         private Label labelCity_KNM;
         private Label labelSearch_KNM;
@@ -212,5 +212,6 @@
         private ToolTip toolTipMain_KNM;
         private DataGridView dataGridViewRetailer_KNM;
         private Label labelRetailer_KNM;
+        private ComboBox comboBoxCity_KNM;
     }
 }

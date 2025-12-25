@@ -103,7 +103,6 @@
             textBoxCoresTo_KNM.Name = "textBoxCoresTo_KNM";
             textBoxCoresTo_KNM.Size = new Size(194, 27);
             textBoxCoresTo_KNM.TabIndex = 8;
-            textBoxCoresTo_KNM.TextChanged += textBoxCoresTo_KNM_TextChanged;
             // 
             // textBoxCoresFrom_KNM
             // 
@@ -111,7 +110,6 @@
             textBoxCoresFrom_KNM.Name = "textBoxCoresFrom_KNM";
             textBoxCoresFrom_KNM.Size = new Size(195, 27);
             textBoxCoresFrom_KNM.TabIndex = 7;
-            textBoxCoresFrom_KNM.TextChanged += textBoxCoresFrom_KNM_TextChanged;
             // 
             // textBoxSearch_KNM
             // 

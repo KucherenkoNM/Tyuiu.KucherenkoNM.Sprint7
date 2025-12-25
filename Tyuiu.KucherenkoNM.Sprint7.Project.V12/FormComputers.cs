@@ -9,114 +9,124 @@ using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services;
 
 namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    public partial class FormComputers : Form, ICsvOpenable
+    public partial class FormComputers : Form, IEditableData
     {
-        private readonly BindingSource bindingSourceComputers_KNM = new BindingSource();
-        private List<Computer> computers_KNM = new();
+        private DataManager dataManager;
+        private readonly BindingSource bindingSource = new BindingSource();
 
         public FormComputers()
         {
             InitializeComponent();
+            KeyPreview = true;
 
             dataGridViewComputers_KNM.AutoGenerateColumns = true;
             dataGridViewComputers_KNM.AllowUserToAddRows = false;
-            dataGridViewComputers_KNM.DataSource = bindingSourceComputers_KNM;
+            dataGridViewComputers_KNM.RowHeadersVisible = true;
+            dataGridViewComputers_KNM.DataSource = bindingSource;
 
             dataGridViewComputers_KNM.CellFormatting += DataGridViewComputers_KNM_CellFormatting;
         }
 
-        public void OpenFromCsv(string filePath)
+        public void SetData(DataManager manager)
         {
-            var service = new ComputerService();
-            computers_KNM = service.LoadFromCsv(filePath);
-
-            bindingSourceComputers_KNM.DataSource = computers_KNM;
-            bindingSourceComputers_KNM.ResetBindings(false);
-
+            dataManager = manager;
+            RefreshData();
             FillEvmTypes();
+        }
+
+        public void Load(string path)
+        {
+            dataManager.ComputersPath = path;
+            dataManager.LoadAll();
+            RefreshData();
+            FillEvmTypes();
+            UiNotifier.ShowLoaded();
+        }
+
+        public void Save(string path)
+        {
+            dataManager.ComputersPath = path;
+            dataManager.SaveAll();
+            UiNotifier.ShowSaved();
+        }
+
+        public void RefreshData()
+        {
+            bindingSource.DataSource = dataManager.Computers.ToList();
+            dataGridViewComputers_KNM.ClearSelection();
         }
 
         private void FillEvmTypes()
         {
-            comboBoxEvmType_KNM.Items.Clear();
-            comboBoxEvmType_KNM.Items.Add("Все");
-
-            var types = computers_KNM
-                .Where(c => !string.IsNullOrWhiteSpace(c.EvmType))
+            var evmTypes = dataManager.Computers
                 .Select(c => c.EvmType)
-                .Distinct();
+                .Where(t => !string.IsNullOrWhiteSpace(t))
+                .Distinct()
+                .OrderBy(t => t)
+                .ToList();
 
-            foreach (var t in types)
-                comboBoxEvmType_KNM.Items.Add(t);
+            evmTypes.Insert(0, "Все");
 
+            comboBoxEvmType_KNM.DataSource = null;
+            comboBoxEvmType_KNM.DataSource = evmTypes;
             comboBoxEvmType_KNM.SelectedIndex = 0;
         }
 
         private void ApplyFilters()
         {
-            IEnumerable<Computer> filtered = computers_KNM;
+            IEnumerable<Computer> filtered = dataManager.Computers;
 
-            string searchText = textBoxSearch_KNM.Text;
-
-            if (!string.IsNullOrWhiteSpace(searchText))
+            string search = textBoxSearch_KNM.Text;
+            if (!string.IsNullOrWhiteSpace(search))
             {
+                string s = search.ToLower();
                 filtered = filtered.Where(c =>
-                    c.ComputerId.ToString().Contains(searchText) ||
-                    (!string.IsNullOrEmpty(c.EvmType) && c.EvmType.Contains(searchText, StringComparison.OrdinalIgnoreCase)) ||
-                    c.ManufacturerId.ToString().Contains(searchText) ||
-                    c.RetailerId.ToString().Contains(searchText) ||
-                    c.ProcessorId.ToString().Contains(searchText) ||
-                    (!string.IsNullOrEmpty(c.StorageType) && c.StorageType.Contains(searchText, StringComparison.OrdinalIgnoreCase)) ||
-                    c.Price.ToString().Contains(searchText) ||
-                    c.ReleaseDate.ToShortDateString().Contains(searchText)
+                    c.Id.ToString().Contains(s) ||
+                    c.EvmType?.ToLower().Contains(s) == true ||
+                    c.ManufacturerId.ToString().Contains(s) ||
+                    c.RetailerId.ToString().Contains(s) ||
+                    c.ProcessorId.ToString().Contains(s) ||
+                    c.StorageType?.ToLower().Contains(s) == true ||
+                    c.Price.ToString().Contains(s) ||
+                    c.ReleaseDate.ToShortDateString().Contains(s)
                 );
             }
 
-            if (comboBoxEvmType_KNM.SelectedIndex > 0)
-            {
-                string type = comboBoxEvmType_KNM.SelectedItem.ToString();
-                filtered = filtered.Where(c => c.EvmType == type);
-            }
+            string evmType = comboBoxEvmType_KNM.SelectedItem as string;
+            if (!string.IsNullOrEmpty(evmType) && evmType != "Все")
+                filtered = filtered.Where(c => c.EvmType == evmType);
 
-            if (decimal.TryParse(textBoxPriceFrom_KNM.Text, out decimal priceFrom))
-                filtered = filtered.Where(c => c.Price >= priceFrom);
+            if (decimal.TryParse(textBoxPriceFrom_KNM.Text, out decimal from))
+                filtered = filtered.Where(c => c.Price >= from);
 
-            if (decimal.TryParse(textBoxPriceTo_KNM.Text, out decimal priceTo))
-                filtered = filtered.Where(c => c.Price <= priceTo);
+            if (decimal.TryParse(textBoxPriceTo_KNM.Text, out decimal to))
+                filtered = filtered.Where(c => c.Price <= to);
 
-            bindingSourceComputers_KNM.DataSource = filtered.ToList();
-            bindingSourceComputers_KNM.ResetBindings(false);
-        }
-
-        private void textBoxSearch_KNM_TextChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void textBoxPriceFrom_KNM_TextChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void textBoxPriceTo_KNM_TextChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void comboBoxEvmType_KNM_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
+            bindingSource.DataSource = filtered.ToList();
+            dataGridViewComputers_KNM.ClearSelection();
         }
 
         private void buttonAddComputer_KNM_Click(object sender, EventArgs e)
         {
-            bindingSourceComputers_KNM.Add(new Computer());
+            var comp = new Computer
+            {
+                Id = dataManager.Computers.Any()
+                    ? dataManager.Computers.Max(c => c.Id) + 1
+                    : 1
+            };
+
+            dataManager.Computers.Add(comp);
+            RefreshData();
+            dataGridViewComputers_KNM.Rows[^1].Selected = true;
         }
 
         private void buttonDeleteComputer_KNM_Click(object sender, EventArgs e)
         {
-            if (bindingSourceComputers_KNM.Current != null)
-                bindingSourceComputers_KNM.RemoveCurrent();
+            if (bindingSource.Current is Computer c)
+            {
+                dataManager.Computers.Remove(c);
+                ApplyFilters();
+            }
         }
 
         private void buttonResetFilters_KNM_Click(object sender, EventArgs e)
@@ -125,35 +135,35 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
             textBoxPriceFrom_KNM.Clear();
             textBoxPriceTo_KNM.Clear();
             comboBoxEvmType_KNM.SelectedIndex = 0;
-
-            bindingSourceComputers_KNM.DataSource = computers_KNM;
-            bindingSourceComputers_KNM.ResetBindings(false);
+            RefreshData();
         }
+
+        private void textBoxSearch_KNM_TextChanged(object sender, EventArgs e) => ApplyFilters();
+        private void comboBoxEvmType_KNM_SelectedIndexChanged(object sender, EventArgs e) => ApplyFilters();
+        private void textBoxPriceFrom_KNM_TextChanged(object sender, EventArgs e) => ApplyFilters();
+        private void textBoxPriceTo_KNM_TextChanged(object sender, EventArgs e) => ApplyFilters();
 
         private void DataGridViewComputers_KNM_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex < 0 || e.Value == null)
+            if (e.Value == null)
                 return;
 
-            var row = dataGridViewComputers_KNM.Rows[e.RowIndex];
-            var item = row.DataBoundItem as Computer;
-            if (item == null)
-                return;
+            bool highlight =
+                !string.IsNullOrWhiteSpace(textBoxSearch_KNM.Text) &&
+                e.Value.ToString().IndexOf(textBoxSearch_KNM.Text, StringComparison.OrdinalIgnoreCase) >= 0;
 
-            bool highlight = false;
-
-            if (!string.IsNullOrWhiteSpace(textBoxSearch_KNM.Text))
+            e.CellStyle.BackColor = highlight ? Color.LightYellow : Color.White;
+            e.CellStyle.ForeColor = Color.Black;
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
             {
-                highlight = e.Value.ToString()
-                    .IndexOf(textBoxSearch_KNM.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+                Close();
+                return true;
             }
 
-            row.DefaultCellStyle.BackColor = highlight ? Color.LightYellow : Color.White;
-            row.DefaultCellStyle.ForeColor = Color.Black;
-        }
-        public List<Computer> GetComputers()
-        {
-            return computers_KNM;
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
     }

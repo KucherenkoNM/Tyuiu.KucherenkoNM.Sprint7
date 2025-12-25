@@ -1,7 +1,9 @@
-﻿public class Manufacturer
+﻿namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Models
 {
-    public int ManufacturerId { get; set; }
-    public string Name { get; set; } = "";
-    public string Country { get; set; } = "";
-
+    public class Manufacturer
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Country { get; set; }
+    }
 }

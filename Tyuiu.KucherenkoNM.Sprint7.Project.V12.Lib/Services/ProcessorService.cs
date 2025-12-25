@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Models;
@@ -21,11 +22,19 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
         public List<Processor> LoadFromCsv(string path)
         {
             var list = new List<Processor>();
+            if (!File.Exists(path))
+                return list;
+
             var lines = File.ReadAllLines(path);
 
             for (int i = 1; i < lines.Length; i++)
             {
+                if (string.IsNullOrWhiteSpace(lines[i]))
+                    continue;
+
                 var p = lines[i].Split(';');
+                if (p.Length < 4)
+                    continue;
 
                 list.Add(new Processor
                 {
@@ -37,6 +46,23 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
             }
 
             return list;
+        }
+
+        public void SaveToCsv(string path, List<Processor> processors)
+        {
+            using var writer = new StreamWriter(path);
+
+            writer.WriteLine("Id;Name;Manufacturer;Cores");
+
+            foreach (var p in processors)
+            {
+                writer.WriteLine(string.Join(";",
+                    p.Id,
+                    p.Name,
+                    p.Manufacturer,
+                    p.Cores.ToString(CultureInfo.InvariantCulture)
+                ));
+            }
         }
     }
 }

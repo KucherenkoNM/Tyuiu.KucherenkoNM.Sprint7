@@ -3,8 +3,8 @@
     public class Processor
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Manufacturer { get; set; } = string.Empty;
+        public string Name { get; set; }
+        public string Manufacturer { get; set; }
         public int Cores { get; set; }
     }
 }

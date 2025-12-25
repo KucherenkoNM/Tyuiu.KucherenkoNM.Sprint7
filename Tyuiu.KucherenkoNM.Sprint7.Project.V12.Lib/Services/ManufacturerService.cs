@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Models;
 
-namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
+namespace Tyuiu.KucherenкоNM.Sprint7.Project.V12.Lib.Services
 {
     public class ManufacturerService
     {
@@ -28,7 +28,7 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
 
                 list.Add(new Manufacturer
                 {
-                    ManufacturerId = int.Parse(p[idIndex]),
+                    Id = int.Parse(p[idIndex]),
                     Name = p[nameIndex],
                     Country = p[countryIndex]
                 });
@@ -37,9 +37,19 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services
             return list;
         }
 
-        public List<Manufacturer> Remove(List<Manufacturer> manufacturers, int id)
+        public void SaveToCsv(List<Manufacturer> manufacturers, string path)
         {
-            return manufacturers.Where(x => x.ManufacturerId != id).ToList();
+            var lines = new List<string>
+            {
+                "Идентификатор фирмы-изготовителя;Наименование фирмы;Страна"
+            };
+
+            foreach (var m in manufacturers)
+            {
+                lines.Add($"{m.Id};{m.Name};{m.Country}");
+            }
+
+            File.WriteAllLines(path, lines);
         }
     }
 }

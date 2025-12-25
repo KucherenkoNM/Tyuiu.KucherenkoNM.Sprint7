@@ -41,6 +41,7 @@
             labelSearch_KNM = new Label();
             labelFiltersTitle_KNM = new Label();
             dataGridViewManufacturer_KNM = new DataGridView();
+            labelManufacturer_KNM = new Label();
             panelTop_KNM.SuspendLayout();
             panelFilter_KNM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewManufacturer_KNM).BeginInit();
@@ -48,6 +49,7 @@
             // 
             // panelTop_KNM
             // 
+            panelTop_KNM.Controls.Add(labelManufacturer_KNM);
             panelTop_KNM.Controls.Add(buttonDeleteManufacturer_KNM);
             panelTop_KNM.Controls.Add(buttonAddManufacturer_KNM);
             panelTop_KNM.Dock = DockStyle.Top;
@@ -166,6 +168,17 @@
             dataGridViewManufacturer_KNM.Size = new Size(580, 387);
             dataGridViewManufacturer_KNM.TabIndex = 3;
             // 
+            // labelManufacturer_KNM
+            // 
+            labelManufacturer_KNM.Anchor = AnchorStyles.Right;
+            labelManufacturer_KNM.AutoSize = true;
+            labelManufacturer_KNM.Font = new Font("Segoe UI Black", 15F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            labelManufacturer_KNM.Location = new Point(569, 12);
+            labelManufacturer_KNM.Name = "labelManufacturer_KNM";
+            labelManufacturer_KNM.Size = new Size(219, 35);
+            labelManufacturer_KNM.TabIndex = 2;
+            labelManufacturer_KNM.Text = "Производители";
+            // 
             // FormManufacturers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -179,6 +192,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Фирмы-изготовители";
             panelTop_KNM.ResumeLayout(false);
+            panelTop_KNM.PerformLayout();
             panelFilter_KNM.ResumeLayout(false);
             panelFilter_KNM.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewManufacturer_KNM).EndInit();
@@ -199,5 +213,6 @@
         private Label labelFiltersTitle_KNM;
         private DataGridView dataGridViewManufacturer_KNM;
         private ComboBox comboBoxCountry_KNM;
+        private Label labelManufacturer_KNM;
     }
 }

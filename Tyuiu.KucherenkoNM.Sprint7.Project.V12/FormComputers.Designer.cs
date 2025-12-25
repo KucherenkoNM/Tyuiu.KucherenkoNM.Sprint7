@@ -94,7 +94,7 @@
             buttonAddComputer_KNM.Name = "buttonAddComputer_KNM";
             buttonAddComputer_KNM.Size = new Size(35, 35);
             buttonAddComputer_KNM.TabIndex = 0;
-            toolTipMain_KNM.SetToolTip(buttonAddComputer_KNM, "Добавить компьютер");
+            toolTipMain_KNM.SetToolTip(buttonAddComputer_KNM, "Добавить компьютер в конец списка");
             buttonAddComputer_KNM.UseVisualStyleBackColor = true;
             buttonAddComputer_KNM.Click += buttonAddComputer_KNM_Click;
             // 

@@ -1,44 +1,56 @@
 ﻿#nullable disable
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Models;
 using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services;
 
 namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    public partial class FormStatistics : Form
+    public partial class FormStatistics : Form, IEditableData
     {
-        private List<Computer> computers_KNM = new();
+        private DataManager dataManager;
 
         public FormStatistics()
         {
             InitializeComponent();
+            KeyPreview = true;
         }
 
-        public void SetData(List<Computer> computers)
+        public void SetData(DataManager manager)
         {
-            computers_KNM = computers;
-            FillEvmTypes();
-            UpdateStatistics();
-        }
+            dataManager = manager;
 
-        private void FillEvmTypes()
-        {
             comboBoxEvmType_KNM.Items.Clear();
             comboBoxEvmType_KNM.Items.Add("Все");
 
-            var types = computers_KNM
-                .Where(c => !string.IsNullOrWhiteSpace(c.EvmType))
-                .Select(c => c.EvmType)
-                .Distinct()
-                .ToList();
-
-            foreach (var t in types)
+            foreach (var t in dataManager.Computers.Select(c => c.EvmType).Distinct())
                 comboBoxEvmType_KNM.Items.Add(t);
 
             comboBoxEvmType_KNM.SelectedIndex = 0;
+            UpdateStatistics();
+        }
+
+        private void UpdateStatistics()
+        {
+            if (dataManager == null)
+                return;
+
+            var computers = dataManager.Computers.AsEnumerable();
+
+            if (comboBoxEvmType_KNM.SelectedItem != null &&
+                comboBoxEvmType_KNM.SelectedItem.ToString() != "Все")
+            {
+                computers = computers.Where(c =>
+                    c.EvmType == comboBoxEvmType_KNM.SelectedItem.ToString());
+            }
+
+            var list = computers.ToList();
+
+            labelCountValue_KNM.Text = list.Count.ToString();
+            labelAverageValue_KNM.Text = StatisticsService.AveragePrice(list).ToString("0.00");
+            labelMaxValue_KNM.Text = StatisticsService.MaxPrice(list).ToString("0.00");
+            labelMinValue_KNM.Text = StatisticsService.MinPrice(list).ToString("0.00");
+            labelSumValue_KNM.Text = StatisticsService.SumPrice(list).ToString("0.00");
         }
 
         private void comboBoxEvmType_KNM_SelectedIndexChanged(object sender, EventArgs e)
@@ -46,23 +58,19 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
             UpdateStatistics();
         }
 
-        private void UpdateStatistics()
+        public void Load(string path) { }
+        public void Save(string path) { }
+        public void RefreshData() => UpdateStatistics();
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            var filtered = computers_KNM.AsEnumerable();
-
-            if (comboBoxEvmType_KNM.SelectedIndex > 0)
+            if (keyData == Keys.Escape)
             {
-                string type = comboBoxEvmType_KNM.SelectedItem.ToString();
-                filtered = filtered.Where(c => c.EvmType == type);
+                Close();
+                return true;
             }
 
-            var list = filtered.ToList();
-
-            labelCountValue_KNM.Text = StatisticsService.Count(list).ToString();
-            labelMinValue_KNM.Text = list.Any() ? StatisticsService.MinPrice(list).ToString("0.00") : "0";
-            labelMaxValue_KNM.Text = list.Any() ? StatisticsService.MaxPrice(list).ToString("0.00") : "0";
-            labelAverageValue_KNM.Text = list.Any() ? StatisticsService.AveragePrice(list).ToString("0.00") : "0";
-            labelSumValue_KNM.Text = list.Any() ? StatisticsService.SumPrice(list).ToString("0.00") : "0";
+            return base.ProcessCmdKey(ref msg, keyData);
         }
+
     }
 }

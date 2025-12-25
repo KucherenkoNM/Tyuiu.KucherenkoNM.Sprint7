@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,47 +9,128 @@ using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services;
 
 namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    public partial class FormManufacturers : Form, ICsvOpenable
+    public partial class FormManufacturers : Form, IEditableData
     {
-        private readonly ManufacturerService manufacturerService_KNM = new();
-        private readonly BindingSource bindingSourceManufacturer_KNM = new();
-        private List<Manufacturer> manufacturers_KNM = new();
+        private DataManager dataManager;
+        private readonly BindingSource bindingSource = new BindingSource();
 
         public FormManufacturers()
         {
             InitializeComponent();
+            KeyPreview = true;
 
             dataGridViewManufacturer_KNM.AutoGenerateColumns = true;
             dataGridViewManufacturer_KNM.AllowUserToAddRows = false;
             dataGridViewManufacturer_KNM.RowHeadersVisible = true;
-            dataGridViewManufacturer_KNM.DataSource = bindingSourceManufacturer_KNM;
+            dataGridViewManufacturer_KNM.DataSource = bindingSource;
 
             dataGridViewManufacturer_KNM.CellFormatting += DataGridViewManufacturer_KNM_CellFormatting;
+            textBoxSearch_KNM.TextChanged += textBoxSearch_KNM_TextChanged;
+            comboBoxCountry_KNM.SelectedIndexChanged += comboBoxCountry_KNM_SelectedIndexChanged;
         }
 
-        public void OpenFromCsv(string filePath)
+        public void SetData(DataManager manager)
         {
-            manufacturers_KNM = manufacturerService_KNM.LoadFromCsv(filePath);
-            bindingSourceManufacturer_KNM.DataSource = manufacturers_KNM;
+            dataManager = manager;
+            RefreshData();
+            UpdateCountryFilter();
+        }
 
-            comboBoxCountry_KNM.Items.Clear();
-            comboBoxCountry_KNM.Items.Add("Все");
+        public void Load(string path)
+        {
+            dataManager.ManufacturersPath = path;
+            dataManager.LoadManufacturers(path);
+            RefreshData();
+            UpdateCountryFilter();
+            UiNotifier.ShowLoaded();
+        }
 
-            foreach (var c in manufacturers_KNM.Select(m => m.Country).Distinct())
-                comboBoxCountry_KNM.Items.Add(c);
+        public void Save(string path)
+        {
+            dataManager.ManufacturersPath = path;
+            dataManager.SaveManufacturers(path);
+            UiNotifier.ShowSaved();
+        }
 
+        public void RefreshData()
+        {
+            bindingSource.DataSource = dataManager.Manufacturers.ToList();
+            dataGridViewManufacturer_KNM.ClearSelection();
+        }
+
+        private void UpdateCountryFilter()
+        {
+            if (dataManager == null)
+                return;
+
+            var countries = dataManager.Manufacturers
+                .Select(m => m.Country)
+                .Where(c => !string.IsNullOrWhiteSpace(c))
+                .Distinct()
+                .OrderBy(c => c)
+                .ToList();
+
+            countries.Insert(0, "Все");
+
+            comboBoxCountry_KNM.DataSource = null;
+            comboBoxCountry_KNM.DataSource = countries;
             comboBoxCountry_KNM.SelectedIndex = 0;
+        }
+
+        private void ApplyFilters()
+        {
+            if (dataManager == null)
+                return;
+
+            IEnumerable<Manufacturer> filtered = dataManager.Manufacturers;
+
+            string search = textBoxSearch_KNM.Text;
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                string s = search.ToLower();
+                filtered = filtered.Where(m =>
+                    m.Id.ToString().Contains(s) ||
+                    m.Name?.ToLower().Contains(s) == true ||
+                    m.Country?.ToLower().Contains(s) == true
+                );
+            }
+
+            string country = comboBoxCountry_KNM.SelectedItem as string;
+            if (!string.IsNullOrEmpty(country) && country != "Все")
+                filtered = filtered.Where(m => m.Country == country);
+
+            bindingSource.DataSource = filtered.ToList();
+            dataGridViewManufacturer_KNM.ClearSelection();
         }
 
         private void buttonAddManufacturer_KNM_Click(object sender, EventArgs e)
         {
-            bindingSourceManufacturer_KNM.Add(new Manufacturer());
+            var m = new Manufacturer
+            {
+                Id = dataManager.Manufacturers.Any()
+                    ? dataManager.Manufacturers.Max(x => x.Id) + 1
+                    : 1
+            };
+
+            dataManager.Manufacturers.Add(m);
+            RefreshData();
+            dataGridViewManufacturer_KNM.Rows[^1].Selected = true;
         }
 
         private void buttonDeleteManufacturer_KNM_Click(object sender, EventArgs e)
         {
-            if (bindingSourceManufacturer_KNM.Current != null)
-                bindingSourceManufacturer_KNM.RemoveCurrent();
+            if (bindingSource.Current is Manufacturer m)
+            {
+                dataManager.Manufacturers.Remove(m);
+                ApplyFilters();
+            }
+        }
+
+        private void buttonResetFilters_KNM_Click(object sender, EventArgs e)
+        {
+            textBoxSearch_KNM.Clear();
+            comboBoxCountry_KNM.SelectedIndex = 0;
+            RefreshData();
         }
 
         private void textBoxSearch_KNM_TextChanged(object sender, EventArgs e)
@@ -61,58 +143,28 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
             ApplyFilters();
         }
 
-        private void buttonResetFilters_KNM_Click(object sender, EventArgs e)
-        {
-            textBoxSearch_KNM.Clear();
-            comboBoxCountry_KNM.SelectedIndex = 0;
-            bindingSourceManufacturer_KNM.DataSource = manufacturers_KNM;
-        }
-
-        private void ApplyFilters()
-        {
-            IEnumerable<Manufacturer> filtered = manufacturers_KNM;
-
-            if (!string.IsNullOrWhiteSpace(textBoxSearch_KNM.Text))
-            {
-                var t = textBoxSearch_KNM.Text.ToLower();
-                filtered = filtered.Where(m =>
-                    m.ManufacturerId.ToString().Contains(t) ||
-                    m.Name.ToLower().Contains(t) ||
-                    m.Country.ToLower().Contains(t));
-            }
-
-            if (comboBoxCountry_KNM.SelectedIndex > 0)
-            {
-                var c = comboBoxCountry_KNM.SelectedItem.ToString();
-                filtered = filtered.Where(m => m.Country == c);
-            }
-
-            bindingSourceManufacturer_KNM.DataSource = filtered.ToList();
-            dataGridViewManufacturer_KNM.ClearSelection();
-        }
-
         private void DataGridViewManufacturer_KNM_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.Value == null)
                 return;
 
-            var value = e.Value.ToString() ?? "";
+            bool highlight =
+                !string.IsNullOrWhiteSpace(textBoxSearch_KNM.Text) &&
+                e.Value.ToString().IndexOf(textBoxSearch_KNM.Text, StringComparison.OrdinalIgnoreCase) >= 0;
 
-            if (!string.IsNullOrWhiteSpace(textBoxSearch_KNM.Text) &&
-                value.Contains(textBoxSearch_KNM.Text, StringComparison.OrdinalIgnoreCase))
-            {
-                e.CellStyle.BackColor = Color.LightYellow;
-            }
-            else if (comboBoxCountry_KNM.SelectedIndex > 0 &&
-                     value.Contains(comboBoxCountry_KNM.SelectedItem.ToString(),
-                         StringComparison.OrdinalIgnoreCase))
-            {
-                e.CellStyle.BackColor = Color.LightYellow;
-            }
-            else
-            {
-                e.CellStyle.BackColor = Color.White;
-            }
+            e.CellStyle.BackColor = highlight ? Color.LightYellow : Color.White;
+            e.CellStyle.ForeColor = Color.Black;
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
     }
 }

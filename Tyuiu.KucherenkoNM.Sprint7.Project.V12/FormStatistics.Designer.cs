@@ -58,6 +58,7 @@
             comboBoxEvmType_KNM.Size = new Size(211, 28);
             comboBoxEvmType_KNM.TabIndex = 2;
             toolTipMain_KNM.SetToolTip(comboBoxEvmType_KNM, "Фильтрация по типу ЭВМ");
+            comboBoxEvmType_KNM.SelectedIndexChanged += comboBoxEvmType_KNM_SelectedIndexChanged;
             // 
             // panelFilters_KNM
             // 

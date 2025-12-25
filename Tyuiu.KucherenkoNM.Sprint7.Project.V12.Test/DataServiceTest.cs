@@ -17,7 +17,7 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Test
 
             var computer = new Computer
             {
-                ComputerId = 1,
+                Id = 1,
                 EvmType = "Ноутбук",
                 ManufacturerId = 101,
                 ProcessorId = 1,
@@ -37,9 +37,9 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12.Test
             var service = new ComputerService();
             var computers = new List<Computer>
             {
-                new Computer { ComputerId = 1, Price = 90000 },
-                new Computer { ComputerId = 2, Price = 60000 },
-                new Computer { ComputerId = 3, Price = 120000 }
+                new Computer { Id = 1, Price = 90000 },
+                new Computer { Id = 2, Price = 60000 },
+                new Computer { Id = 3, Price = 120000 }
             };
 
             var sorted = service.SortByPrice(computers);

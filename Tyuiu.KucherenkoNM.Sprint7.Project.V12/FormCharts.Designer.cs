@@ -61,9 +61,9 @@
             // 
             comboBoxParametr_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxParametr_KNM.FormattingEnabled = true;
-            comboBoxParametr_KNM.Location = new Point(54, 169);
+            comboBoxParametr_KNM.Location = new Point(24, 169);
             comboBoxParametr_KNM.Name = "comboBoxParametr_KNM";
-            comboBoxParametr_KNM.Size = new Size(151, 28);
+            comboBoxParametr_KNM.Size = new Size(234, 28);
             comboBoxParametr_KNM.TabIndex = 2;
             comboBoxParametr_KNM.SelectedIndexChanged += comboBoxParametr_KNM_SelectedIndexChanged;
             // 
@@ -80,9 +80,9 @@
             // 
             comboBoxChartType_KNM.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxChartType_KNM.FormattingEnabled = true;
-            comboBoxChartType_KNM.Location = new Point(54, 75);
+            comboBoxChartType_KNM.Location = new Point(24, 75);
             comboBoxChartType_KNM.Name = "comboBoxChartType_KNM";
-            comboBoxChartType_KNM.Size = new Size(151, 28);
+            comboBoxChartType_KNM.Size = new Size(234, 28);
             comboBoxChartType_KNM.TabIndex = 2;
             comboBoxChartType_KNM.SelectedIndexChanged += comboBoxChartType_KNM_SelectedIndexChanged;
             // 

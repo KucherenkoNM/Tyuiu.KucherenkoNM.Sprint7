@@ -9,69 +9,91 @@ using Tyuiu.KucherenkoNM.Sprint7.Project.V12.Lib.Services;
 
 namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
 {
-    public partial class FormProcessors : Form, ICsvOpenable
+    public partial class FormProcessors : Form, IEditableData
     {
-        private readonly ProcessorService processorService = new ProcessorService();
+        private DataManager dataManager;
         private readonly BindingSource bindingSource = new BindingSource();
-        private List<Processor> processors = new();
 
         public FormProcessors()
         {
             InitializeComponent();
+            KeyPreview = true;
 
             dataGridViewProcessors_KNM.AutoGenerateColumns = true;
             dataGridViewProcessors_KNM.AllowUserToAddRows = false;
+            dataGridViewProcessors_KNM.RowHeadersVisible = true;
             dataGridViewProcessors_KNM.DataSource = bindingSource;
 
             dataGridViewProcessors_KNM.CellFormatting += DataGridViewProcessors_KNM_CellFormatting;
+
+            textBoxCoresFrom_KNM.TextChanged += (_, __) => ApplyFilters();
+            textBoxCoresTo_KNM.TextChanged += (_, __) => ApplyFilters();
         }
 
-        public void OpenFromCsv(string filePath)
+        public void SetData(DataManager manager)
         {
-            processors = processorService.LoadFromCsv(filePath);
-
-            bindingSource.DataSource = processors;
-
-            FillManufacturers();
+            dataManager = manager;
+            RefreshData();
+            UpdateManufacturerFilter();
         }
 
-        private void FillManufacturers()
+        public void Load(string path)
         {
-            var manufacturers = processors
+            dataManager.ProcessorsPath = path;
+            dataManager.LoadProcessors(path);
+            RefreshData();
+            UpdateManufacturerFilter();
+            UiNotifier.ShowLoaded();
+        }
+
+        public void Save(string path)
+        {
+            dataManager.ProcessorsPath = path;
+            dataManager.SaveProcessors(path);
+            UiNotifier.ShowSaved();
+        }
+
+        public void RefreshData()
+        {
+            bindingSource.DataSource = dataManager.Processors.ToList();
+            dataGridViewProcessors_KNM.ClearSelection();
+        }
+
+        private void UpdateManufacturerFilter()
+        {
+            var manufacturers = dataManager.Processors
+                .Where(p => !string.IsNullOrWhiteSpace(p.Manufacturer))
                 .Select(p => p.Manufacturer)
-                .Where(m => !string.IsNullOrWhiteSpace(m))
                 .Distinct()
+                .OrderBy(m => m)
                 .ToList();
 
             manufacturers.Insert(0, "Все");
 
+            comboBoxManufacturer_KNM.DataSource = null;
             comboBoxManufacturer_KNM.DataSource = manufacturers;
             comboBoxManufacturer_KNM.SelectedIndex = 0;
         }
 
         private void ApplyFilters()
         {
-            IEnumerable<Processor> filtered = processors;
+            IEnumerable<Processor> filtered = dataManager.Processors;
 
-            string searchText = textBoxSearch_KNM.Text;
-            if (!string.IsNullOrWhiteSpace(searchText))
+            string search = textBoxSearch_KNM.Text;
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                string text = searchText.ToLower();
-
+                string s = search.ToLower();
                 filtered = filtered.Where(p =>
-                    p.Id.ToString().Contains(text) ||
-                    p.Name.ToLower().Contains(text) ||
-                    p.Manufacturer.ToLower().Contains(text) ||
-                    p.Cores.ToString().Contains(text)
+                    p.Id.ToString().Contains(s) ||
+                    p.Name?.ToLower().Contains(s) == true ||
+                    p.Manufacturer?.ToLower().Contains(s) == true ||
+                    p.Cores.ToString().Contains(s)
                 );
             }
 
-            if (comboBoxManufacturer_KNM.SelectedItem != null &&
-                comboBoxManufacturer_KNM.SelectedItem.ToString() != "Все")
-            {
-                string manufacturer = comboBoxManufacturer_KNM.SelectedItem.ToString();
+            string manufacturer = comboBoxManufacturer_KNM.SelectedItem as string;
+            if (!string.IsNullOrEmpty(manufacturer) && manufacturer != "Все")
                 filtered = filtered.Where(p => p.Manufacturer == manufacturer);
-            }
 
             if (int.TryParse(textBoxCoresFrom_KNM.Text, out int from))
                 filtered = filtered.Where(p => p.Cores >= from);
@@ -83,78 +105,62 @@ namespace Tyuiu.KucherenkoNM.Sprint7.Project.V12
             dataGridViewProcessors_KNM.ClearSelection();
         }
 
-        private void textBoxSearch_KNM_TextChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void comboBoxManufacturer_KNM_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void textBoxCoresFrom_KNM_TextChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void textBoxCoresTo_KNM_TextChanged(object sender, EventArgs e)
-        {
-            ApplyFilters();
-        }
-
-        private void buttonResetFilters_KNM_Click(object sender, EventArgs e)
-        {
-            textBoxSearch_KNM.Clear();
-            textBoxCoresFrom_KNM.Clear();
-            textBoxCoresTo_KNM.Clear();
-            comboBoxManufacturer_KNM.SelectedIndex = 0;
-
-            bindingSource.DataSource = processors;
-        }
-
-        private void DataGridViewProcessors_KNM_CellFormatting(
-            object sender,
-            DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.Value == null)
-                return;
-
-            bool highlight = false;
-
-            if (!string.IsNullOrWhiteSpace(textBoxSearch_KNM.Text))
-            {
-                highlight = e.Value.ToString()
-                    .IndexOf(textBoxSearch_KNM.Text, StringComparison.OrdinalIgnoreCase) >= 0;
-            }
-
-            if (comboBoxManufacturer_KNM.SelectedItem != null &&
-                comboBoxManufacturer_KNM.SelectedItem.ToString() != "Все" &&
-                e.Value.ToString()
-                    .Equals(comboBoxManufacturer_KNM.SelectedItem.ToString(),
-                        StringComparison.OrdinalIgnoreCase))
-            {
-                highlight = true;
-            }
-
-            e.CellStyle.BackColor = highlight ? Color.LightYellow : Color.White;
-            e.CellStyle.ForeColor = Color.Black;
-        }
         private void buttonAddProcessor_KNM_Click(object sender, EventArgs e)
         {
-            var p = new Processor();
-            processors.Add(p);
-            ApplyFilters();
-            bindingSource.Position = bindingSource.IndexOf(p);
+            var p = new Processor
+            {
+                Id = dataManager.Processors.Any()
+                    ? dataManager.Processors.Max(x => x.Id) + 1
+                    : 1
+            };
+
+            dataManager.Processors.Add(p);
+            RefreshData();
+            dataGridViewProcessors_KNM.Rows[^1].Selected = true;
         }
 
         private void buttonDeleteProcessor_KNM_Click(object sender, EventArgs e)
         {
             if (bindingSource.Current is Processor p)
             {
-                processors.Remove(p);
+                dataManager.Processors.Remove(p);
                 ApplyFilters();
             }
+        }
+
+        private void buttonResetFilters_KNM_Click(object sender, EventArgs e)
+        {
+            textBoxSearch_KNM.Clear();
+            comboBoxManufacturer_KNM.SelectedIndex = 0;
+            textBoxCoresFrom_KNM.Clear();
+            textBoxCoresTo_KNM.Clear();
+            RefreshData();
+        }
+
+        private void textBoxSearch_KNM_TextChanged(object sender, EventArgs e) => ApplyFilters();
+        private void comboBoxManufacturer_KNM_SelectedIndexChanged(object sender, EventArgs e) => ApplyFilters();
+
+        private void DataGridViewProcessors_KNM_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value == null)
+                return;
+
+            bool highlight =
+                !string.IsNullOrWhiteSpace(textBoxSearch_KNM.Text) &&
+                e.Value.ToString().IndexOf(textBoxSearch_KNM.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+
+            e.CellStyle.BackColor = highlight ? Color.LightYellow : Color.White;
+            e.CellStyle.ForeColor = Color.Black;
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
     }

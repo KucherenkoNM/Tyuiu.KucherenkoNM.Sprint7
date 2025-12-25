@@ -87,6 +87,7 @@
             menuFileSave_KNM.Name = "menuFileSave_KNM";
             menuFileSave_KNM.Size = new Size(178, 28);
             menuFileSave_KNM.Text = "Сохранить";
+            menuFileSave_KNM.Click += menuFileSave_KNM_Click;
             // 
             // menuFileExit_KNM
             // 
@@ -187,6 +188,7 @@
             toolStripButtonOpen_KNM.Size = new Size(44, 44);
             toolStripButtonOpen_KNM.Text = "toolStripButton1";
             toolStripButtonOpen_KNM.ToolTipText = "Открыть CSV файл";
+            toolStripButtonOpen_KNM.Click += toolStripButtonOpen_KNM_Click;
             // 
             // toolStripButtonSave_KNM
             // 
@@ -197,6 +199,7 @@
             toolStripButtonSave_KNM.Size = new Size(44, 44);
             toolStripButtonSave_KNM.Text = "toolStripButton2";
             toolStripButtonSave_KNM.ToolTipText = "Сохранить CSV файл";
+            toolStripButtonSave_KNM.Click += toolStripButtonSave_KNM_Click;
             // 
             // toolStripButtonRefresh_KNM
             // 
@@ -206,7 +209,8 @@
             toolStripButtonRefresh_KNM.Name = "toolStripButtonRefresh_KNM";
             toolStripButtonRefresh_KNM.Size = new Size(44, 44);
             toolStripButtonRefresh_KNM.Text = "toolStripButton3";
-            toolStripButtonRefresh_KNM.ToolTipText = "Обновить данные";
+            toolStripButtonRefresh_KNM.ToolTipText = "Перезагрузить данные до последнего сохранения";
+            toolStripButtonRefresh_KNM.Click += toolStripButtonRefresh_KNM_Click;
             // 
             // panelContent_KNM
             // 
@@ -222,13 +226,13 @@
             // 
             labelWelcome_KNM.Anchor = AnchorStyles.None;
             labelWelcome_KNM.AutoSize = true;
-            labelWelcome_KNM.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            labelWelcome_KNM.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
             labelWelcome_KNM.ForeColor = SystemColors.GrayText;
-            labelWelcome_KNM.Location = new Point(419, 260);
+            labelWelcome_KNM.Location = new Point(-278, 13);
             labelWelcome_KNM.Name = "labelWelcome_KNM";
-            labelWelcome_KNM.Size = new Size(327, 35);
+            labelWelcome_KNM.Size = new Size(1638, 570);
             labelWelcome_KNM.TabIndex = 0;
-            labelWelcome_KNM.Text = "Выберите раздел в меню";
+            labelWelcome_KNM.Text = resources.GetString("labelWelcome_KNM.Text");
             labelWelcome_KNM.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FormMain
